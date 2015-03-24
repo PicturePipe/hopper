@@ -18,6 +18,7 @@ requires = [
     'django-configurations>=0.8',
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
+    'djangorestframework>=3.1.1',
     'envdir>=0.7',
     'psycopg2>=2.5.4',
     'pytz>=2014.10',

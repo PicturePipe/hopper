@@ -160,6 +160,8 @@ class Common(Configuration):
         'django.contrib.admin',
         'django.contrib.admindocs',
         'crispy_forms',
+        'rest_framework',
+        'rest_framework.authtoken',
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
@@ -174,6 +176,14 @@ class Common(Configuration):
     EMAIL_SUBJECT_PREFIX = '[Hopper]'
     DEFAULT_FROM_EMAIL = 'team@transcode.de'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+    REST_FRAMEWORK = {
+        # Use Django's standard `django.contrib.auth` permissions,
+        # or allow read-only access for unauthenticated users.
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        ]
+    }
 
 
 class Public(Email, Common):
