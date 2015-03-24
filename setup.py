@@ -32,7 +32,7 @@ tests_requires = [
     'coverage==3.7.1',
     'factory_boy==2.4.1',
     'freezegun==0.2.8',
-    'isort==3.9.4',
+    'isort==3.9.5',
     'pytest-django==2.7.0',
     'pytest-pythonpath==0.6',
     'pytest==2.6.4',
