@@ -1,0 +1,52 @@
+{
+    "url": "http://example.com/api/23/",
+    "author": 2,
+    "date_created": "2015-03-26T11:01:23.262391Z",
+    "date_updated": "2015-03-26T11:01:23.262391Z",
+    "html": "<form></form>",
+    "javascript": "<script></script>",
+    "form": {
+        "id": 123,
+        "method": "POST",
+        "action": "/action/create",
+        "enctype": "multipart/form-data",
+        "title": "A new form",
+        "help_text": "Lorem ipsum.",
+        "css_classes": "form inline",
+        "elements_css_classes": "form-control",
+        "elements": {
+            "title": {
+                "type": "input",
+                "label": "Title",
+                "placeholder": "Enter the title",
+                "weight": 1,
+                "immutable": false,
+                "readonly": false,
+                "required": true,
+                "maxlength": 50,
+                "default": ""
+            },
+            "description": {
+                "type": "textarea",
+                "label": "Description",
+                "placeholder": "Add your description here.",
+                "immutable": false,
+                "readonly": false,
+                "required": false,
+                "weight": 2,
+                "rows": "10",
+                "cols": "50"
+            },
+            "vegetarian": {
+                "label": "Vegetarian",
+                "type": "checkbox",
+                "value": "Vegetarian",
+                "immutable": false,
+                "readonly": false,
+                "required": true,
+                "weight": 3,
+                "checked": false
+            }
+        }
+    }
+}
