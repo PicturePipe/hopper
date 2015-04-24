@@ -150,6 +150,7 @@ class Common(Configuration):
     )
 
     INSTALLED_APPS = (
+        'django.contrib.postgres',
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
@@ -162,6 +163,7 @@ class Common(Configuration):
         'crispy_forms',
         'rest_framework',
         'rest_framework.authtoken',
+        'api',
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
@@ -178,11 +180,9 @@ class Common(Configuration):
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
     REST_FRAMEWORK = {
-        # Use Django's standard `django.contrib.auth` permissions,
-        # or allow read-only access for unauthenticated users.
-        'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-        ]
+        'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.AllowAny',
+        )
     }
 
 

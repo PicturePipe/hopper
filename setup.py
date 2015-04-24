@@ -12,13 +12,12 @@ def read(*paths):
         return f.read()
 
 requires = [
-    'Django<1.8',
+    'Django<1.9',
     'dj-database-url>=0.3.0',
     'django-braces>=1.4.0',
-    'django-configurations>=0.8',
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
-    'djangorestframework>=3.1.1',
+    'djangorestframework==3.1.1',
     'envdir>=0.7',
     'psycopg2>=2.5.4',
     'pytz>=2014.10',
@@ -34,6 +33,7 @@ tests_requires = [
     'freezegun==0.2.8',
     'isort==3.9.5',
     'pytest-django==2.7.0',
+    'pytest-httpretty==0.2.0',
     'pytest-pythonpath==0.6',
     'pytest==2.6.4',
     'tox==1.9.0',
