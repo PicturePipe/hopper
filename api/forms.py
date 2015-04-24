@@ -1,11 +1,11 @@
 # encoding: utf-8
-from django import forms
-from django.forms.widgets import (TextInput, Textarea, RadioSelect, CheckboxSelectMultiple,
-                                 MultiWidget, Select, SelectMultiple, DateInput, DateTimeInput,
-                                 FileInput, NumberInput, EmailInput, URLInput, PasswordInput,
-                                 HiddenInput)
 from crispy_forms.helper import FormHelper
 from crispy_forms.utils import render_crispy_form
+from django import forms
+from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInput, EmailInput,
+                                  FileInput, HiddenInput, MultiWidget, NumberInput, PasswordInput,
+                                  RadioSelect, Select, SelectMultiple, Textarea, TextInput,
+                                  URLInput)
 
 
 class HopperForm(forms.Form):
