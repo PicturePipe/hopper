@@ -38,7 +38,7 @@ class FormData(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.html = HopperForm(model=self).render_as_form()
+        self.html = HopperForm(model=self).render_as_form().replace('\n', '').replace('\t', '')
         self.elements = self.convert_values_to_string(self.elements)
         super(FormData, self).save(*args, **kwargs)
 
