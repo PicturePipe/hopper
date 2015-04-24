@@ -5,6 +5,8 @@ include LICENSE
 include Makefile
 include tox.ini
 exclude .bumpversion.cfg
+exclude .editorconfig
+exclude *.yml
 
 recursive-include docs *.rst conf.py Makefile make.bat
 recursive-include hopper *
