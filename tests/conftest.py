@@ -42,3 +42,16 @@ def form_data_model(fixture, user):
         'elements': json.loads(fixture('simple_form.json'))['form']['elements'],
     }
     return FormData.objects.create(**form_data)
+
+
+@pytest.fixture
+def sample_dict():
+    data = {
+        '1': 'string',
+        '2': [1, 2, 3, 4, 5],
+        '3': {
+            '1': 'string',
+            '2': [1, 2, 3, 4, 5],
+        }
+    }
+    return data
