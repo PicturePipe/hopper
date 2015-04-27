@@ -1,0 +1,19 @@
+language: python
+install:
+  - pip install tox
+env:
+  - TOXENV=py27
+  - TOXENV=py34
+  - TOXENV=flake8
+  - TOXENV=isort
+  - TOXENV=manifest
+before_script:
+  - psql -d template1 -c 'create extension hstore;'
+  - createuser -d -e hopper
+  - createdb -U hopper hopper
+script:
+  - tox
+sudo: false
+notifications:
+  slack:
+    secure: GUabKu20PYIFkeBDmdr1/F5baTuXWJafjSWKub7fHAt9SWhw1AloN4J8cqr5j/AECrDrGjHZPafw6epc16Uxztrnn7gChhhxvZzot91boA68eYRWNMEyJu+TIVaxjkuG+qIBFa/wvCSYcIZYhFbvJGi+kzZu8dtzw0ulZVbAGMg=

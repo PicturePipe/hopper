@@ -1,9 +1,8 @@
 # encoding: utf-8
-from .models import FormData
-
 from django.contrib.auth.models import User
-
 from rest_framework import serializers
+
+from .models import FormData
 
 
 class AuthorSerializer(serializers.IntegerField):
