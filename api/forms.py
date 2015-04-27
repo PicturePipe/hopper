@@ -5,6 +5,7 @@ from django.forms.widgets import (TextInput, Textarea, RadioSelect, CheckboxSele
                                  FileInput, NumberInput, EmailInput, URLInput, PasswordInput,
                                  HiddenInput)
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import ButtonHolder, Field, Fieldset, Layout, Submit
 from crispy_forms.utils import render_crispy_form
 
 
@@ -36,20 +37,25 @@ class HopperForm(forms.Form):
         self.helper.form_action = model.action
         self.helper.form_method = model.method
         self.helper.field_class = model.elements_css_classes
-        self.fields = self.create_fields(elements)
+        self.fields, field_layout = self.create_fields(elements)
+        self.helper.layout = Layout(*field_layout)
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
         widgets"""
         fields = {}
+        field_layout = []
         for name, element in elements.items():
             field_attrs = self.get_base_field_attrs(element)
             if element['type'] == 'fieldset':
-                fields.update(self.create_fields(element['elements']))
+                subfields, subfield_layout = self.create_fields(element['elements'])
+                fields.update(subfields)
+                field_layout.append(Fieldset(element['label'], *subfield_layout))
             else:
                 fields[name] = forms.Field(field_attrs,
                         widget=self.create_widget(element))
-        return fields
+                field_layout.append(Field(name))
+        return fields, field_layout
 
     def create_widget(self, element):
         """Creates widget by type with its attributes"""
