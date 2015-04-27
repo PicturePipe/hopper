@@ -38,8 +38,8 @@ class FormData(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.html = HopperForm(model=self).render_as_form().replace('\n', '').replace('\t', '')
         self.elements = self.convert_values_to_string(self.elements)
+        self.html = HopperForm(model=self).render_as_form().replace('\n', '').replace('\t', '')
         super(FormData, self).save(*args, **kwargs)
 
     @classmethod
@@ -50,13 +50,12 @@ class FormData(models.Model):
         convert to python objects."""
         converted_elements = {}
         if type(elements) != dict:
-            converted_elements = json.loads(elements)
-        else:
-            for key, element in elements.items():
-                if type(element) == str:
-                    converted_elements[key] = json.loads(element)
-                else:
-                    converted_elements[key] = elements[key]
+            elements = json.loads(elements)
+        for key, element in elements.items():
+            if type(element) == str:
+                converted_elements[key] = json.loads(element)
+            else:
+                converted_elements[key] = elements[key]
         return converted_elements
 
     @classmethod
@@ -67,5 +66,8 @@ class FormData(models.Model):
         string."""
         converted_elements = {}
         for key, element in elements.items():
-            converted_elements[key] = json.dumps(element)
+            if type(element) in [dict, bool]:
+                converted_elements[key] = json.dumps(element)
+            else:
+                converted_elements[key] = element
         return converted_elements
