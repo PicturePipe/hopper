@@ -37,11 +37,20 @@
                 "rows": "10",
                 "cols": "50"
             },
-             "director": {
+            "tocAccepted": {
+                "label": "Accepted TOC",
+                "type": "checkbox",
+                "checked": false,
+                "immutable": false,
+                "readonly": false,
+                "required": true,
+                "weight": 3
+            },
+            "director": {
                 "type": "fieldset",
                 "label": "Director",
                 "immutable": false,
-                "weight": 3,
+                "weight": 4,
                 "clone": {
                     "extra": 2,
                     "max": 5,
@@ -55,7 +64,7 @@
                         "immutable": false,
                         "readonly": false,
                         "required": true,
-                        "weight": 4
+                        "weight": 5
                     },
                     "first_name": {
                         "label": "First Name",
