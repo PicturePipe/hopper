@@ -7,6 +7,10 @@ env:
   - TOXENV=flake8
   - TOXENV=isort
   - TOXENV=manifest
+before_script:
+  - psql -d template1 -c 'create extension hstore;'
+  - createuser -d -e hopper
+  - createdb -U hopper hopper
 script:
   - tox
 sudo: false
