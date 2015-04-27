@@ -1,8 +1,7 @@
 # encoding: utf-8
-from django.core.urlresolvers import reverse
-
-import pytest
 import httpretty
+import pytest
+from django.core.urlresolvers import reverse
 
 
 @pytest.mark.httpretty
