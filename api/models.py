@@ -51,11 +51,12 @@ class FormData(models.Model):
         converted_elements = {}
         if type(elements) != dict:
             elements = json.loads(elements)
-        for key, element in elements.items():
-            if type(element) == str:
-                converted_elements[key] = json.loads(element)
-            else:
-                converted_elements[key] = elements[key]
+        else:
+            for key, element in elements.items():
+                if type(element) == str:
+                    converted_elements[key] = json.loads(element)
+                else:
+                    converted_elements[key] = elements[key]
         return converted_elements
 
     @classmethod
