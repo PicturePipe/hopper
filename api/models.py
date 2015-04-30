@@ -6,6 +6,7 @@ import json
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
 from django.db import models
+from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 
 from .forms import HopperForm
@@ -38,7 +39,6 @@ class FormData(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.html = HopperForm(model=self).render_as_form()
         self.elements = self.convert_values_to_string(self.elements)
         super(FormData, self).save(*args, **kwargs)
 
@@ -69,3 +69,13 @@ class FormData(models.Model):
         for key, element in elements.items():
             converted_elements[key] = json.dumps(element)
         return converted_elements
+
+
+@receiver(models.signals.post_save, sender=FormData)
+def render_form_data_html(sender, instance, created, raw, **kwargs):
+    """Renders FormData.html after a new FormData has been created."""
+    if created and not raw:
+        from .serializers import FormDataSerializer
+        data = FormDataSerializer(instance).data
+        data['elements'] = FormData.convert_to_dict(instance.elements)
+        instance.html = HopperForm(data=data).render_as_form()
