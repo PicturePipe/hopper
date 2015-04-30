@@ -23,8 +23,8 @@ class FormData(models.Model):
     )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Author')
     title = models.TextField(verbose_name='Form title')
-    date_created = models.DateTimeField()
-    date_updated = models.DateTimeField()
+    date_created = models.DateTimeField(verbose_name='Date created', editable=False)
+    date_updated = models.DateTimeField(verbose_name='Date updated', editable=False)
     action = models.TextField(verbose_name='Form action')
     enctype = models.TextField(verbose_name='Form enctype', default='multipart/form-data')
     method = models.CharField(choices=FORM_METHODS, max_length=4, verbose_name='Field method',
