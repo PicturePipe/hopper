@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import json
+from datetime import datetime
 
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
@@ -22,8 +23,8 @@ class FormData(models.Model):
     )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Author')
     title = models.TextField(verbose_name='Form title')
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField()
+    date_updated = models.DateTimeField()
     action = models.TextField(verbose_name='Form action')
     enctype = models.TextField(verbose_name='Form enctype', default='multipart/form-data')
     method = models.CharField(choices=FORM_METHODS, max_length=4, verbose_name='Field method',
@@ -40,6 +41,9 @@ class FormData(models.Model):
     def save(self, *args, **kwargs):
         self.html = HopperForm(model=self).render_as_form()
         self.elements = self.convert_values_to_string(self.elements)
+        if self.id is None:
+            self.date_created = datetime.now()
+        self.date_updated = datetime.now()
         super(FormData, self).save(*args, **kwargs)
 
     @classmethod
