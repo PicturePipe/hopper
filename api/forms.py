@@ -10,8 +10,7 @@ from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInp
 
 class HopperForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        model = kwargs.pop('model', None)
-        elements = model.convert_to_dict(model.elements)
+        model_data = kwargs.pop('data', None)
         super(HopperForm, self).__init__(*args, **kwargs)
         self.type_widget_mapping = {
             'input': TextInput,
@@ -31,11 +30,11 @@ class HopperForm(forms.Form):
             'hidden': HiddenInput,
         }
         self.helper = FormHelper()
-        self.helper.form_class = model.css_classes
-        self.helper.form_action = model.action
-        self.helper.form_method = model.method
-        self.helper.field_class = model.elements_css_classes
-        self.fields = self.create_fields(elements)
+        self.helper.form_class = model_data['css_classes']
+        self.helper.form_action = model_data['action']
+        self.helper.form_method = model_data['method']
+        self.helper.field_class = model_data['elements_css_classes']
+        self.fields = self.create_fields(model_data['elements'])
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
