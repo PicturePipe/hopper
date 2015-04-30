@@ -27,14 +27,31 @@ class FormSerializer(serializers.Serializer):
 class FormDataSerializer(serializers.HyperlinkedModelSerializer):
     author = AuthorSerializer()
     form = FormSerializer(required=False)
+    elements = serializers.DictField(required=False)
+    html = serializers.CharField(required=False)
+    id = serializers.IntegerField(required=False)
+    method = serializers.CharField(required=False)
+    action = serializers.CharField(required=False)
+    enctype = serializers.CharField(required=False)
+    title = serializers.CharField(required=False)
+    help_text = serializers.CharField(required=False)
+    css_classes = serializers.CharField(required=False)
+    elements_css_classes = serializers.CharField(required=False)
 
     class Meta:
         fields = (
+            'id',
             'author',
-            'date_created',
-            'date_updated',
+            'elements',
             'html',
             'form',
+            'title',
+            'action',
+            'enctype',
+            'method',
+            'help_text',
+            'css_classes',
+            'elements_css_classes',
         )
         model = FormData
 
