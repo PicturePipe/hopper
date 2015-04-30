@@ -28,13 +28,13 @@ class FormData(models.Model):
     form_id = models.CharField(verbose_name='Form CSS selector', max_length=255, blank=True)
     action = models.TextField(verbose_name='Form action')
     enctype = models.TextField(verbose_name='Form enctype', default='multipart/form-data')
-    method = models.CharField(choices=FORM_METHODS, max_length=4, verbose_name='Field method',
-        default=GET)
+    method = models.CharField(verbose_name='Form method', choices=FORM_METHODS, max_length=4,
+        default=POST)
     help_text = models.TextField(verbose_name='Help text', null=True, blank=True)
-    css_classes = models.TextField(verbose_name='Form CSS classes', default='')
+    css_classes = models.TextField(verbose_name='Form CSS classes')
     elements = HStoreField()
-    elements_css_classes = models.TextField(verbose_name='Field CSS classes', default='')
-    html = models.TextField(default=None, null=True)
+    elements_css_classes = models.TextField(verbose_name='Field CSS classes')
+    html = models.TextField(verbose_name='HTML', editable=False)
 
     def __str__(self):
         return self.title
