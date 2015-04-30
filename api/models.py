@@ -74,7 +74,7 @@ class FormData(models.Model):
 @receiver(models.signals.post_save, sender=FormData)
 def render_form_data_html(sender, instance, created, raw, **kwargs):
     """Renders FormData.html after a new FormData has been created."""
-    if created and not raw:
+    if not raw:
         from .serializers import FormDataSerializer
         data = FormDataSerializer(instance).data
         data['elements'] = FormData.convert_to_dict(instance.elements)
