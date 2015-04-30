@@ -23,10 +23,9 @@ def test_list_view_get(client, fixture):
 
 
 @pytest.mark.httpretty
-def test_list_view_post(client, user, fixture):
+def test_list_view_post(client, form_data):
     url = reverse('api-list')
-    form = 'simple_form.json'
-    httpretty.register_uri(httpretty.POST, url, body=fixture(form),
+    httpretty.register_uri(httpretty.POST, url, body=form_data,
         content_type='application/json')
-    response = client.post(url, data=fixture(form), content_type='application/json')
+    response = client.post(url, data=form_data, content_type='application/json')
     assert response.status_code == 201

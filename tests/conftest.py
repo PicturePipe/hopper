@@ -28,9 +28,9 @@ def fixture():
 
 
 @pytest.fixture
-def form_data_model(fixture, user):
-    form_data = {
-        'author': user,
+def model_data(user, fixture):
+    model_data = {
+        'author': user.id,
         'title': 'my form',
         'action': '/action/create',
         'method': 'POST',
@@ -41,7 +41,21 @@ def form_data_model(fixture, user):
         'elements_css_classes': 'form-control',
         'elements': json.loads(fixture('simple_form.json'))['form']['elements'],
     }
-    return FormData.objects.create(**form_data)
+    return model_data
+
+
+@pytest.fixture
+def model(model_data, user):
+    data = model_data.copy()
+    data['author'] = user
+    return FormData.objects.create(**data)
+
+
+@pytest.fixture
+def form_data(fixture, user):
+    form_data = json.loads(fixture('simple_form.json'))
+    form_data['author'] = user.id
+    return json.dumps(form_data)
 
 
 @pytest.fixture
