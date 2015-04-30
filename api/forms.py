@@ -6,11 +6,13 @@ from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInp
                                   FileInput, HiddenInput, MultiWidget, NumberInput, PasswordInput,
                                   RadioSelect, Select, SelectMultiple, Textarea, TextInput,
                                   URLInput)
+from django.utils.six import BytesIO
+from rest_framework.parsers import JSONParser
 
 
 class HopperForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        model_data = kwargs.pop('data', None)
+        model_data = self.get_dict(kwargs.pop('data', None))
         super(HopperForm, self).__init__(*args, **kwargs)
         self.type_widget_mapping = {
             'input': TextInput,
@@ -90,3 +92,9 @@ class HopperForm(forms.Form):
     def render_as_form(self):
         """Wrapper function to call crispyforms function"""
         return render_crispy_form(self).strip('\n')
+
+    def get_dict(self, data):
+        if type(data) != dict:
+            stream = BytesIO(data)
+            data = JSONParser().parse(stream)
+        return data
