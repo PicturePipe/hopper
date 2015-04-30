@@ -76,7 +76,8 @@ class FormData(models.Model):
 def render_form_data_html(sender, instance, created, raw, **kwargs):
     """Renders FormData.html after a new FormData has been created."""
     if not raw:
+        from rest_framework.renderers import JSONRenderer
         from .serializers import FormDataSerializer
         data = FormDataSerializer(instance).data
         data['elements'] = FormData.convert_to_dict(instance.elements)
-        instance.html = HopperForm(data=data).render_as_form()
+        instance.html = HopperForm(data=JSONRenderer().render(data)).render_as_form()
