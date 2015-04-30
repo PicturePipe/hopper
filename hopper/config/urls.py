@@ -7,11 +7,11 @@ from rest_framework import routers
 from api.views import FormDataViewSet
 
 router = routers.DefaultRouter()
-router.register(r'', FormDataViewSet, base_name='api')
+router.register(r'api', FormDataViewSet, base_name='api')
 
 urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/', include(router.urls)),
+    url(r'^', include(router.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
