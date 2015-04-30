@@ -2,12 +2,12 @@
 from __future__ import unicode_literals
 
 import json
-from datetime import datetime
 
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 
 from .forms import HopperForm
 
@@ -42,8 +42,8 @@ class FormData(models.Model):
         self.html = HopperForm(model=self).render_as_form()
         self.elements = self.convert_values_to_string(self.elements)
         if self.id is None:
-            self.date_created = datetime.now()
-        self.date_updated = datetime.now()
+            self.date_created = timezone.now()
+        self.date_updated = timezone.now()
         super(FormData, self).save(*args, **kwargs)
 
     @classmethod
