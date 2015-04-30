@@ -25,6 +25,7 @@ class FormData(models.Model):
     title = models.TextField(verbose_name='Form title')
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=True)
+    form_id = models.CharField(verbose_name='Form CSS selector', max_length=255, blank=True)
     action = models.TextField(verbose_name='Form action')
     enctype = models.TextField(verbose_name='Form enctype', default='multipart/form-data')
     method = models.CharField(choices=FORM_METHODS, max_length=4, verbose_name='Field method',
