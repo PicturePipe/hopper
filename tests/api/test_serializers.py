@@ -1,5 +1,6 @@
 # encoding: utf-8
 from api.serializers import FormDataSerializer
+from api.models import FormData
 
 
 def test_form_serializer(model):
@@ -9,3 +10,9 @@ def test_form_serializer(model):
     for key in keys:
         assert serializer.data[key] == getattr(model, key)
     assert serializer.data['author'] == model.author.pk
+
+
+def test_serializer_with_minimal_model(user):
+    model = FormData.objects.create(**{'author': user})
+    serializer = FormDataSerializer(model)
+    assert serializer.data['author'] == user.pk
