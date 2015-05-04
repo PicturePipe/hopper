@@ -41,7 +41,7 @@ class FormData(models.Model):
     def save(self, *args, **kwargs):
         self.html = HopperForm(model=self).render_as_form()
         self.elements = self.convert_values_to_string(self.elements)
-        if self.id is None:
+        if not self.id:
             self.date_created = now()
         self.date_updated = now()
         super(FormData, self).save(*args, **kwargs)
