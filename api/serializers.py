@@ -5,19 +5,9 @@ from rest_framework import serializers
 from .models import FormData
 
 
-class AuthorSerializer(serializers.Serializer):
-    def to_internal_value(self, data):
-        return User.objects.get(id=data)
-
-    def to_representation(self, value):
-        return User.objects.get(username=value).id
-
-
 class FormDataSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         fields = (
-            'author',
             'url',
         )
         model = FormData
@@ -40,5 +30,9 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
             return_data['form_id'] = form_id
         return return_data
 
-    def to_representation(self, value):
-        pass
+    def to_representation(self, obj):
+        object_attrs = ['title', 'date_created', 'date_updated', 'form_id', 'action', 'enctype',
+            'method', 'help_text', 'css_classes', 'elements', 'elements_css_classes', 'html']
+        representation = {key: getattr(obj, key) for key in object_attrs}
+        representation['author'] = obj.author_id
+        return representation
