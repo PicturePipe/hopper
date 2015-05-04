@@ -46,9 +46,8 @@ def model_data(user, fixture):
 
 @pytest.fixture
 def model(model_data, user):
-    data = model_data.copy()
-    data['author'] = user
-    return FormData.objects.create(**data)
+    model_data['author'] = user
+    return FormData.objects.create(**model_data)
 
 
 @pytest.fixture
