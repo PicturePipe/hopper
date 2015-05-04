@@ -14,7 +14,6 @@ class AuthorSerializer(serializers.IntegerField):
 
 
 class FormSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
     method = serializers.CharField()
     action = serializers.CharField()
     enctype = serializers.CharField()
