@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.timezone import now
 
 from .forms import HopperForm
 
@@ -22,8 +23,8 @@ class FormData(models.Model):
     )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Author')
     title = models.TextField(verbose_name='Form title')
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(verbose_name='Date created', editable=False)
+    date_updated = models.DateTimeField(verbose_name='Date updated', editable=False)
     action = models.TextField(verbose_name='Form action')
     enctype = models.TextField(verbose_name='Form enctype', default='multipart/form-data')
     method = models.CharField(choices=FORM_METHODS, max_length=4, verbose_name='Field method',
@@ -40,6 +41,9 @@ class FormData(models.Model):
     def save(self, *args, **kwargs):
         self.html = HopperForm(model=self).render_as_form()
         self.elements = self.convert_values_to_string(self.elements)
+        if not self.id:
+            self.date_created = now()
+        self.date_updated = now()
         super(FormData, self).save(*args, **kwargs)
 
     @classmethod
