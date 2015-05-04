@@ -50,14 +50,15 @@ class FormData(models.Model):
         dictionaries, all values of nested dicts are strings and have to
         convert to python objects."""
         converted_elements = {}
-        if type(elements) != dict:
-            converted_elements = json.loads(elements)
-        else:
-            for key, element in elements.items():
-                if type(element) == str:
-                    converted_elements[key] = json.loads(element)
-                else:
-                    converted_elements[key] = elements[key]
+        if elements:
+            if type(elements) != dict:
+                converted_elements = json.loads(elements)
+            else:
+                for key, element in elements.items():
+                    if type(element) == str:
+                        converted_elements[key] = json.loads(element)
+                    else:
+                        converted_elements[key] = elements[key]
         return converted_elements
 
     @classmethod
@@ -67,8 +68,9 @@ class FormData(models.Model):
         dictionaries, all values of nested dicts have to convert to
         string."""
         converted_elements = {}
-        for key, element in elements.items():
-            converted_elements[key] = json.dumps(element)
+        if elements:
+            for key, element in elements.items():
+                converted_elements[key] = json.dumps(element)
         return converted_elements
 
 
