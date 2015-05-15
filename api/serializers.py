@@ -32,7 +32,8 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
 
     def to_representation(self, obj):
         object_attrs = ['title', 'date_created', 'date_updated', 'form_id', 'action', 'enctype',
-            'method', 'help_text', 'css_classes', 'elements', 'elements_css_classes', 'html']
+            'method', 'help_text', 'css_classes', 'elements_css_classes', 'html']
         representation = {key: getattr(obj, key) for key in object_attrs}
         representation['author'] = obj.author_id
+        representation['elements'] = obj.convert_to_dict(getattr(obj, 'elements'))
         return representation
