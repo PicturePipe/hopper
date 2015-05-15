@@ -7,9 +7,30 @@ from .models import FormData
 
 
 class FormDataSerializer(serializers.HyperlinkedModelSerializer):
+    author = serializers.CharField()
+    title = serializers.CharField()
+    form_id = serializers.CharField()
+    action = serializers.CharField()
+    enctype = serializers.CharField()
+    method = serializers.CharField()
+    help_text = serializers.CharField()
+    css_classes = serializers.CharField()
+    elements = serializers.CharField()
+    elements_css_classes = serializers.CharField()
+
     class Meta:
         fields = (
             'url',
+            'author',
+            'title',
+            'form_id',
+            'action',
+            'enctype',
+            'method',
+            'help_text',
+            'css_classes',
+            'elements',
+            'elements_css_classes',
         )
         model = FormData
 
