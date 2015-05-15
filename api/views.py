@@ -1,3 +1,4 @@
+# encoding: utf-8
 from rest_framework import viewsets
 
 from .models import FormData
@@ -10,3 +11,11 @@ class FormDataViewSet(viewsets.ModelViewSet):
     """
     serializer_class = FormDataSerializer
     queryset = FormData.objects.all()
+
+    def get_serializer(self, *args, **kwargs):
+        """
+        Return serializer instance with injected context.
+        """
+        serializer_class = self.get_serializer_class()
+        kwargs['context'] = self.get_serializer_context()
+        return serializer_class(*args, **kwargs)
