@@ -1,6 +1,7 @@
 # encoding: utf-8
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 
 from .models import FormData
 
@@ -36,4 +37,6 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
         representation = {key: getattr(obj, key) for key in object_attrs}
         representation['author'] = obj.author_id
         representation['elements'] = obj.convert_to_dict(getattr(obj, 'elements'))
+        request = self.context.get('request')
+        representation['url'] = reverse('api-detail', kwargs={'pk': obj.id}, request=request)
         return representation
