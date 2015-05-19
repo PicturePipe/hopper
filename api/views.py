@@ -7,7 +7,7 @@ from .serializers import FormDataSerializer
 
 class FormDataViewSet(viewsets.ModelViewSet):
     """
-    A viewset for viewing and editing user instances.
+    A viewset for viewing and editing form instances.
     """
     serializer_class = FormDataSerializer
     queryset = FormData.objects.all()
