@@ -15,6 +15,7 @@ requires = [
     'Django<1.9',
     'dj-database-url>=0.3.0',
     'django-braces>=1.4.0',
+    'django-cors-headers>=1.1.0',
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
     'djangorestframework==3.1.1',
