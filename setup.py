@@ -36,7 +36,7 @@ tests_requires = [
     'pytest-httpretty==0.2.0',
     'pytest-pythonpath==0.6',
     'pytest==2.6.4',
-    'tox==1.9.0',
+    'tox==1.9.2',
 ]
 
 setup(
