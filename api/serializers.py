@@ -53,11 +53,13 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
         return return_data
 
     def to_representation(self, obj):
-        object_attrs = ['title', 'date_created', 'date_updated', 'form_id', 'action', 'enctype',
-            'method', 'help_text', 'css_classes', 'elements_css_classes', 'html']
-        representation = {key: getattr(obj, key) for key in object_attrs}
+        meta_attrs = ['date_created', 'date_updated', 'html']
+        representation = {key: getattr(obj, key) for key in meta_attrs}
         representation['author'] = obj.author_id
-        representation['elements'] = obj.convert_to_dict(getattr(obj, 'elements'))
+        form_attrs = ['title', 'form_id', 'action', 'enctype', 'method', 'help_text',
+            'css_classes', 'elements_css_classes']
+        representation['form'] = {key: getattr(obj, key) for key in form_attrs}
+        representation['form']['elements'] = obj.convert_to_dict(getattr(obj, 'elements'))
         request = self.context.get('request')
         representation['url'] = reverse('api-detail', kwargs={'pk': obj.id}, request=request)
         return representation
