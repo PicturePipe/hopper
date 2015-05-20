@@ -8,7 +8,7 @@ def test_form_serializer(model):
         'elements_css_classes',)
     serializer = FormDataSerializer(model)
     for key in keys:
-        assert serializer.data[key] == getattr(model, key)
+        assert serializer.data['form'][key] == getattr(model, key)
     assert serializer.data['author'] == model.author.pk
 
 

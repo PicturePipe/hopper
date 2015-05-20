@@ -31,23 +31,25 @@ def fixture():
 def model_data(user, fixture):
     model_data = {
         'author': user.id,
-        'title': 'my form',
-        'action': '/action/create',
-        'method': 'POST',
-        'enctype': 'multipart/form-data',
-        'html': '<form></form>',
-        'help_text': 'help, HELP!!',
-        'css_classes': 'form inline',
-        'elements_css_classes': 'form-control',
-        'elements': json.loads(fixture('simple_form.json'))['form']['elements'],
+        'form': {
+            'title': 'my form',
+            'action': '/action/create',
+            'method': 'POST',
+            'enctype': 'multipart/form-data',
+            'html': '<form></form>',
+            'help_text': 'help, HELP!!',
+            'css_classes': 'form inline',
+            'elements_css_classes': 'form-control',
+            'elements': json.loads(fixture('simple_form.json'))['form']['elements'],
+        }
     }
     return model_data
 
 
 @pytest.fixture
 def model(model_data, user):
-    model_data['author'] = user
-    return FormData.objects.create(**model_data)
+    model_data['form']['author'] = user
+    return FormData.objects.create(**model_data['form'])
 
 
 @pytest.fixture

@@ -24,4 +24,4 @@ def test_setting(model, model_data):
     The test checks if rendered html is set in post_save signal
     receiver method.
     """
-    assert model.html != model_data['html']
+    assert model.html != model_data['form']['html']
