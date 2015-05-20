@@ -37,7 +37,8 @@ class HopperForm(forms.Form):
         self.helper.form_action = model_data['form']['action']
         self.helper.form_method = model_data['form']['method']
         self.helper.field_class = model_data['form']['elements_css_classes']
-        self.fields = self.create_fields(model_data['form']['elements'])
+        self.fields, field_layout = self.create_fields(model_data['form']['elements'])
+        self.helper.layout = Layout(*field_layout)
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
