@@ -32,11 +32,11 @@ class HopperForm(forms.Form):
             'hidden': HiddenInput,
         }
         self.helper = FormHelper()
-        self.helper.form_class = model_data['css_classes']
-        self.helper.form_action = model_data['action']
-        self.helper.form_method = model_data['method']
-        self.helper.field_class = model_data['elements_css_classes']
-        self.fields = self.create_fields(model_data['elements'])
+        self.helper.form_class = model_data['form']['css_classes']
+        self.helper.form_action = model_data['form']['action']
+        self.helper.form_method = model_data['form']['method']
+        self.helper.field_class = model_data['form']['elements_css_classes']
+        self.fields = self.create_fields(model_data['form']['elements'])
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
