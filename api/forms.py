@@ -6,12 +6,13 @@ from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInp
                                   FileInput, HiddenInput, MultiWidget, NumberInput, PasswordInput,
                                   RadioSelect, Select, SelectMultiple, Textarea, TextInput,
                                   URLInput)
+from django.utils.six import BytesIO
+from rest_framework.parsers import JSONParser
 
 
 class HopperForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        model = kwargs.pop('model', None)
-        elements = model.convert_to_dict(model.elements)
+        model_data = self.get_dict(kwargs.pop('data', None))
         super(HopperForm, self).__init__(*args, **kwargs)
         self.type_widget_mapping = {
             'input': TextInput,
@@ -31,11 +32,11 @@ class HopperForm(forms.Form):
             'hidden': HiddenInput,
         }
         self.helper = FormHelper()
-        self.helper.form_class = model.css_classes
-        self.helper.form_action = model.action
-        self.helper.form_method = model.method
-        self.helper.field_class = model.elements_css_classes
-        self.fields = self.create_fields(elements)
+        self.helper.form_class = model_data['form']['css_classes']
+        self.helper.form_action = model_data['form']['action']
+        self.helper.form_method = model_data['form']['method']
+        self.helper.field_class = model_data['form']['elements_css_classes']
+        self.fields = self.create_fields(model_data['form']['elements'])
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
@@ -91,3 +92,9 @@ class HopperForm(forms.Form):
     def render_as_form(self):
         """Wrapper function to call crispyforms function"""
         return render_crispy_form(self).strip('\n')
+
+    def get_dict(self, data):
+        if type(data) != dict:
+            stream = BytesIO(data)
+            data = JSONParser().parse(stream)
+        return data
