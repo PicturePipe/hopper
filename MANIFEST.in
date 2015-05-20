@@ -6,12 +6,12 @@ include Makefile
 include tox.ini
 exclude .bumpversion.cfg
 exclude .editorconfig
-exclude .isort.cfg
 exclude *.yml
 
 recursive-include docs *.rst conf.py Makefile make.bat
 recursive-include hopper *
 recursive-include tests *
+recursive-include requirements *.txt
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

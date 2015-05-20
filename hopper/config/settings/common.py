@@ -129,6 +129,7 @@ class Common(Configuration):
 
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -160,6 +161,7 @@ class Common(Configuration):
         'grappelli',  # grappelli must be listed before django.contrib.admin!
         'django.contrib.admin',
         'django.contrib.admindocs',
+        'corsheaders',
         'crispy_forms',
         'rest_framework',
         'rest_framework.authtoken',
@@ -184,6 +186,9 @@ class Common(Configuration):
             'rest_framework.permissions.AllowAny',
         )
     }
+
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_URLS_REGEX = r'^/api/.*$'
 
 
 class Public(Email, Common):

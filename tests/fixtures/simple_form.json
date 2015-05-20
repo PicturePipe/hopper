@@ -6,7 +6,7 @@
     "html": "<form></form>",
     "javascript": "<script></script>",
     "form": {
-        "id": 123,
+        "id": "form-123",
         "method": "POST",
         "action": "/action/create",
         "enctype": "multipart/form-data",

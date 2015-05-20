@@ -2,6 +2,6 @@
 from api.forms import HopperForm
 
 
-def test_form_creation(user, form_data_model):
-    html = HopperForm(model=form_data_model).render_as_form()
+def test_form_creation(model_data):
+    html = HopperForm(data=model_data).render_as_form()
     assert html.startswith('<form')
