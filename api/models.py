@@ -74,7 +74,10 @@ class FormData(models.Model):
         converted_elements = {}
         if elements:
             for key, element in elements.items():
-                converted_elements[key] = json.dumps(element)
+                if type(element) != str:
+                    converted_elements[key] = json.dumps(element)
+                else:
+                    converted_elements[key] = element
         return converted_elements
 
 
