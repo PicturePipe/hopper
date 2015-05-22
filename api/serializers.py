@@ -39,10 +39,7 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
 
     def to_internal_value(self, data):
         return_data = {}
-        author_id = data.pop('author', None)
-        author = User.objects.get(id=author_id)
-        if author:
-            return_data['author'] = author
+        return_data['author'] = self.instance.author
         form_data = data.pop('form', None)
         form_data_keys = ['method', 'action', 'enctype', 'title', 'help_text', 'css_classes',
             'elements_css_classes', 'elements']
