@@ -86,4 +86,6 @@ def render_form_data_html(sender, instance, created, raw, **kwargs):
         from rest_framework.renderers import JSONRenderer
         from .serializers import FormDataSerializer
         data = FormDataSerializer(instance).data
-        instance.html = HopperForm(data=JSONRenderer().render(data)).render_as_form()
+        instance.html = HopperForm(
+            data=JSONRenderer().render(data)
+        ).render_as_form().replace('\n', '').replace('\t', '')
