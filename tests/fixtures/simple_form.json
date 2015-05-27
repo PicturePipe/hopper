@@ -37,15 +37,54 @@
                 "rows": "10",
                 "cols": "50"
             },
-            "vegetarian": {
-                "label": "Vegetarian",
+            "tocAccepted": {
+                "label": "Accepted TOC",
                 "type": "checkbox",
-                "value": "Vegetarian",
+                "checked": false,
                 "immutable": false,
                 "readonly": false,
                 "required": true,
-                "weight": 3,
-                "checked": false
+                "weight": 3
+            },
+            "director": {
+                "type": "fieldset",
+                "label": "Director",
+                "immutable": false,
+                "weight": 4,
+                "clone": {
+                    "extra": 2,
+                    "max": 5,
+                    "required": 3
+                },
+                "elements": {
+                    "sex": {
+                        "label": "Sex",
+                        "type": "radio",
+                        "choices": ["female", "male"],
+                        "immutable": false,
+                        "readonly": false,
+                        "required": true,
+                        "weight": 5
+                    },
+                    "first_name": {
+                        "label": "First Name",
+                        "type": "input",
+                        "placeholder": "",
+                        "immutable": false,
+                        "readonly": false,
+                        "required": true,
+                        "weight": 1
+                    },
+                    "last_name": {
+                        "label": "Last Name",
+                        "type": "input",
+                        "placeholder": "Last name",
+                        "immutable": false,
+                        "readonly": false,
+                        "required": true,
+                        "weight": 2
+                    }
+                }
             }
         }
     }

@@ -1,53 +1,61 @@
 # encoding: utf-8
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import ButtonHolder, Field, Fieldset, Layout, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInput, EmailInput,
-                                  FileInput, HiddenInput, MultiWidget, NumberInput, PasswordInput,
-                                  RadioSelect, Select, SelectMultiple, Textarea, TextInput,
-                                  URLInput)
+                                  FileInput, HiddenInput, NumberInput, PasswordInput, RadioSelect,
+                                  Select, SelectMultiple, Textarea, TextInput, URLInput)
 from django.utils.six import BytesIO
 from rest_framework.parsers import JSONParser
 
 
 class HopperForm(forms.Form):
+
+    type_widget_mapping = {
+        'input': TextInput,
+        'textarea': Textarea,
+        'radio': RadioSelect,
+        'checkbox': CheckboxSelectMultiple,
+        'select': Select,
+        'multiselect': SelectMultiple,
+        'date': DateInput,
+        'datetime': DateTimeInput,
+        'file': FileInput,
+        'integer': NumberInput,
+        'mail': EmailInput,
+        'url': URLInput,
+        'password': PasswordInput,
+        'hidden': HiddenInput,
+    }
+
     def __init__(self, *args, **kwargs):
         model_data = self.get_dict(kwargs.pop('data', None))
         super(HopperForm, self).__init__(*args, **kwargs)
-        self.type_widget_mapping = {
-            'input': TextInput,
-            'fieldset': MultiWidget,
-            'textarea': Textarea,
-            'radio': RadioSelect,
-            'checkbox': CheckboxSelectMultiple,
-            'select': Select,
-            'multiselect': SelectMultiple,
-            'date': DateInput,
-            'datetime': DateTimeInput,
-            'file': FileInput,
-            'integer': NumberInput,
-            'mail': EmailInput,
-            'url': URLInput,
-            'password': PasswordInput,
-            'hidden': HiddenInput,
-        }
         self.helper = FormHelper()
         self.helper.form_class = model_data['form']['css_classes']
         self.helper.form_action = model_data['form']['action']
         self.helper.form_method = model_data['form']['method']
         self.helper.field_class = model_data['form']['elements_css_classes']
-        self.fields = self.create_fields(model_data['form']['elements'])
+        self.fields, field_layout = self.create_fields(model_data['form']['elements'])
+        self.helper.layout = Layout(*field_layout)
 
     def create_fields(self, elements):
         """Creates dictionary with fields and its attributes and
         widgets"""
         fields = {}
+        field_layout = []
         for name, element in elements.items():
             field_attrs = self.get_base_field_attrs(element)
-            fields[name] = forms.Field(field_attrs, widget=self.create_widget(element))
             if element['type'] == 'fieldset':
-                fields.update(self.create_fields(element['elements']))
-        return fields
+                subfields, subfield_layout = self.create_fields(element['elements'])
+                fields.update(subfields)
+                field_layout.append(Fieldset(element['label'], *subfield_layout))
+            else:
+                fields[name] = forms.Field(field_attrs,
+                        widget=self.create_widget(element))
+                field_layout.append(Field(name))
+        return fields, field_layout
 
     def create_widget(self, element):
         """Creates widget by type with its attributes"""
@@ -87,7 +95,7 @@ class HopperForm(forms.Form):
     @classmethod
     def build_dict(cls, source, keys):
         """Builts a dictionary from given keys and source"""
-        return {attr: source[attr] for attr in keys}
+        return {attr: source.get(attr, None) for attr in keys}
 
     def render_as_form(self):
         """Wrapper function to call crispyforms function"""
