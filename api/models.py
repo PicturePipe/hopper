@@ -1,6 +1,7 @@
 # encoding: utf-8
 from __future__ import unicode_literals
 
+from collections import OrderedDict
 import json
 
 from django.conf import settings
@@ -76,6 +77,16 @@ class FormData(models.Model):
             for key, element in elements.items():
                 converted_elements[key] = json.dumps(element)
         return converted_elements
+
+    @classmethod
+    def order_by_weight(cls, elements):
+        ordered_elements = elements.copy()
+        for name, element in elements.items():
+            if element.get('type') == 'fieldset':
+                ordered_elements[name]['elements'] = cls.order_by_weight(element['elements'])
+        return OrderedDict(
+            sorted(ordered_elements.items(), key=lambda element: element[1].get('weight', 10000))
+        )
 
 
 @receiver(models.signals.post_save, sender=FormData)
