@@ -20,8 +20,8 @@ def test_list_view_get(client, fixture):
     url = reverse('api-list')
     httpretty.register_uri(httpretty.GET, url,
         body=fixture('form.json'), content_type='application/json')
-    get_response = client.get(url)
-    assert get_response.status_code == 200
+    response = client.get(url)
+    assert response.status_code == 200
 
 
 @pytest.mark.httpretty
