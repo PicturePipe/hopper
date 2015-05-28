@@ -28,7 +28,7 @@ def fixture():
 
 
 @pytest.fixture
-def model_data(user, fixture):
+def model_data(user, simple_form):
     model_data = {
         'author': user.id,
         'form': {
@@ -40,7 +40,7 @@ def model_data(user, fixture):
             'help_text': 'help, HELP!!',
             'css_classes': 'form inline',
             'elements_css_classes': 'form-control',
-            'elements': json.loads(fixture('simple_form.json'))['form']['elements'],
+            'elements': simple_form['form']['elements'],
         }
     }
     return model_data
@@ -53,10 +53,9 @@ def model(model_data, user):
 
 
 @pytest.fixture
-def form_data(fixture, user):
+def simple_form(fixture, user):
     form_data = json.loads(fixture('simple_form.json'))
-    form_data['author'] = user.id
-    return json.dumps(form_data)
+    return form_data
 
 
 @pytest.fixture
