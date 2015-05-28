@@ -1,6 +1,8 @@
 # encoding: utf-8
 import json
 
+import pytest
+
 from api.models import FormData
 
 
@@ -25,3 +27,22 @@ def test_setting(model, model_data):
     receiver method.
     """
     assert model.html != model_data['form']['html']
+
+
+def test_ordering_by_weight_with_form(form):
+    ordered_elements = FormData.order_by_weight(form['form']['elements'])
+    assert len(ordered_elements) == len(form['form']['elements'])
+    ordered_director = ordered_elements['director'].pop('elements')
+    # each level has to be ordered
+    weights = [element['weight'] for element in ordered_elements.values()]
+    assert sorted(weights) == weights
+    weights = [element['weight'] for element in ordered_director.values()]
+    assert sorted(weights) == weights
+
+
+@pytest.mark.parametrize("elements, ordered_elements", [
+    ({}, {}),
+    ({'a': {}, 'b': {'weight': 1}}, {'b': {'weight': 1}, 'a': {}}),
+])
+def test_ordering_by_weight_edge_cases(elements, ordered_elements):
+    assert FormData.order_by_weight(elements) == ordered_elements
