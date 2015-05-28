@@ -45,8 +45,9 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
             return_data['author'] = author
         form_data = data.pop('form', None)
         form_data_keys = ['method', 'action', 'enctype', 'title', 'help_text', 'css_classes',
-            'elements_css_classes', 'elements']
+            'elements_css_classes']
         return_data.update({key: form_data.get(key, None) for key in form_data_keys})
+        return_data['elements'] = FormData.order_by_weight(form_data.get('elements', {}))
         form_id = form_data.get('id', None)
         if form_id:
             return_data['form_id'] = form_id
@@ -59,7 +60,9 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
         form_attrs = ['title', 'form_id', 'action', 'enctype', 'method', 'help_text',
             'css_classes', 'elements_css_classes']
         representation['form'] = {key: getattr(obj, key) for key in form_attrs}
-        representation['form']['elements'] = obj.convert_to_dict(getattr(obj, 'elements'))
+        representation['form']['elements'] = FormData.order_by_weight(
+            obj.convert_to_dict(getattr(obj, 'elements'))
+        )
         request = self.context.get('request')
         representation['url'] = reverse('api-detail', kwargs={'pk': obj.id}, request=request)
         return representation
