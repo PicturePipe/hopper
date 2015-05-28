@@ -19,7 +19,7 @@
                 "type": "input",
                 "label": "Title",
                 "placeholder": "Enter the title",
-                "weight": 1,
+                "weight": 3,
                 "immutable": false,
                 "readonly": false,
                 "required": true,
@@ -33,7 +33,7 @@
                 "immutable": false,
                 "readonly": false,
                 "required": false,
-                "weight": 2,
+                "weight": 1,
                 "rows": "10",
                 "cols": "50"
             },
@@ -44,13 +44,14 @@
                 "immutable": false,
                 "readonly": false,
                 "required": true,
-                "weight": 3
+                "weight": 4
             },
             "director": {
                 "type": "fieldset",
                 "label": "Director",
                 "immutable": false,
-                "weight": 4,
+                "weight": 2,
+                "checked": false,
                 "clone": {
                     "extra": 2,
                     "max": 5,
@@ -83,6 +84,16 @@
                         "readonly": false,
                         "required": true,
                         "weight": 2
+                    },
+                   "vegetarian": {
+                        "label": "Vegetarian",
+                        "type": "checkbox",
+                        "value": "Vegetarian",
+                        "immutable": false,
+                        "readonly": false,
+                        "required": true,
+                        "weight": 3,
+                        "checked": false
                     }
                 }
             }

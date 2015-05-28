@@ -19,18 +19,18 @@ def test_get_api_root(client):
 def test_list_view_get(client, fixture):
     url = reverse('api-list')
     httpretty.register_uri(httpretty.GET, url,
-        body=fixture('simple_form.json'), content_type='application/json')
+        body=fixture('form.json'), content_type='application/json')
     get_response = client.get(url)
     assert get_response.status_code == 200
 
 
 @pytest.mark.httpretty
-def test_list_view_post(client, simple_form, user):
-    simple_form['author'] = user.id
+def test_list_view_post(client, form, user):
+    form['author'] = user.id
     url = reverse('api-list')
-    httpretty.register_uri(httpretty.POST, url, body=simple_form,
+    httpretty.register_uri(httpretty.POST, url, body=form,
         content_type='application/json')
-    response = client.post(url, data=json.dumps(simple_form), content_type='application/json')
+    response = client.post(url, data=json.dumps(form), content_type='application/json')
     assert response.status_code == 201
 
 
@@ -39,7 +39,7 @@ def test_list_view_post(client, simple_form, user):
 def test_list_view_detail(client, fixture, model):
     url = reverse('api-detail', kwargs={'pk': model.id})
     httpretty.register_uri(httpretty.GET, url,
-        body=fixture('simple_form.json'), content_type='application/json')
+        body=fixture('form.json'), content_type='application/json')
     response = client.get(url)
     assert response.status_code == 200
     assert response.data['url'].startswith('http://')
