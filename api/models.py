@@ -1,8 +1,8 @@
 # encoding: utf-8
 from __future__ import unicode_literals
 
-from collections import OrderedDict
 import json
+from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib.postgres.fields import HStoreField
