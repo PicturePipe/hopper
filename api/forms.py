@@ -1,32 +1,36 @@
 # encoding: utf-8
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import ButtonHolder, Field, Fieldset, Layout, Submit
+from crispy_forms.layout import ButtonHolder, Field, Fieldset, HTML, Layout, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
-from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInput, EmailInput,
-                                  FileInput, HiddenInput, NumberInput, PasswordInput, RadioSelect,
-                                  Select, SelectMultiple, Textarea, TextInput, URLInput)
 from django.utils.six import BytesIO
 from rest_framework.parsers import JSONParser
 
 
 class HopperForm(forms.Form):
 
+    type_field_mapping = {
+        'input': forms.CharField,
+        'textarea': forms.CharField,
+        'radio': forms.ChoiceField,
+        'checkbox': forms.BooleanField,
+        'select': forms.ChoiceField,
+        'multiselect': forms.MultipleChoiceField,
+        'date': forms.DateField,
+        'datetime': forms.DateTimeField,
+        'file': forms.FileField,
+        'integer': forms.IntegerField,
+        'mail': forms.EmailField,
+        'url': forms.URLField,
+        'password': forms.CharField,
+        'hidden': forms.CharField,
+    }
+
     type_widget_mapping = {
-        'input': TextInput,
-        'textarea': Textarea,
-        'radio': RadioSelect,
-        'checkbox': CheckboxSelectMultiple,
-        'select': Select,
-        'multiselect': SelectMultiple,
-        'date': DateInput,
-        'datetime': DateTimeInput,
-        'file': FileInput,
-        'integer': NumberInput,
-        'mail': EmailInput,
-        'url': URLInput,
-        'password': PasswordInput,
-        'hidden': HiddenInput,
+        'textarea': forms.widgets.Textarea,
+        'radio': forms.widgets.RadioSelect,
+        'password': forms.widgets.PasswordInput,
+        'hidden': forms.widgets.HiddenInput,
     }
 
     def __init__(self, *args, **kwargs):
@@ -46,28 +50,32 @@ class HopperForm(forms.Form):
         fields = {}
         field_layout = []
         for name, element in elements.items():
-            field_attrs = self.get_base_field_attrs(element)
+            field_attrs = self.get_field_attrs(element)
             if element['type'] == 'fieldset':
                 subfields, subfield_layout = self.create_fields(element['elements'])
                 fields.update(subfields)
                 field_layout.append(Fieldset(element['label'], *subfield_layout))
             else:
-                fields[name] = forms.Field(field_attrs,
-                        widget=self.create_widget(element))
-                field_layout.append(Field(name))
+                widget = self.create_widget(element)
+                if widget:
+                    field_attrs['widget'] = widget
+                fields[name] = self.type_field_mapping[element['type']](**field_attrs)
+                if element['type'] == 'radio':
+                    field_layout.append(
+                        HTML(fields[name].widget.render(name, ''))  # ToDo: add default
+                    )
+                else:
+                    field_layout.append(Field(name))
         return fields, field_layout
 
     def create_widget(self, element):
         """Creates widget by type with its attributes"""
         widget = None
         data = element.copy()
-        try:
-            widget_type = data.pop('type', None)
+        widget_type = data.pop('type', None)
+        if widget_type in self.type_widget_mapping:
             widget_attrs = self.get_widget_attrs(data, widget_type)
             widget = self.type_widget_mapping[widget_type](attrs=widget_attrs)
-        except KeyError:
-            # no corresponding widget for given type
-            raise
         return widget
 
     def get_base_field_attrs(self, data):
@@ -78,6 +86,13 @@ class HopperForm(forms.Form):
         """Returns dictionary with general widget attributes"""
         return self.build_dict(data, ['immutable', 'readonly'])
 
+    def get_field_attrs(self, data):
+        field_attrs = {}
+        if data['type'] in ['select', 'multiselect', 'radio']:
+            field_attrs['choices'] = tuple([(choice, choice) for choice in data['choices']])
+        field_attrs.update(self.get_base_field_attrs(data))
+        return field_attrs
+
     def get_widget_attrs(self, data, widget_type):
         """Returns dictionary with attributes for given widget_type"""
         widget_attrs = {}
@@ -87,15 +102,13 @@ class HopperForm(forms.Form):
             widget_attrs = self.build_dict(data, ['rows', 'cols', 'label'])
         elif widget_type == 'checkbox':
             widget_attrs = self.build_dict(data, ['checked', 'value'])
-        else:
-            pass
         widget_attrs.update(self.get_base_widget_attrs(data))
         return widget_attrs
 
     @classmethod
     def build_dict(cls, source, keys):
         """Builts a dictionary from given keys and source"""
-        return {attr: source.get(attr, None) for attr in keys}
+        return {attr: source.get(attr, False) for attr in keys}
 
     def render_as_form(self):
         """Wrapper function to call crispyforms function"""
