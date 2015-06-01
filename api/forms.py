@@ -80,7 +80,9 @@ class HopperForm(forms.Form):
 
     def get_base_field_attrs(self, data):
         """Returns dictionary with general field attributes"""
-        return self.build_dict(data, ['required'])
+        field_attrs = self.build_dict(data, ['required'])
+        field_attrs['initial'] = data.get('default')
+        return field_attrs
 
     def get_base_widget_attrs(self, data):
         """Returns dictionary with general widget attributes"""
@@ -88,7 +90,10 @@ class HopperForm(forms.Form):
 
     def get_field_attrs(self, data):
         field_attrs = {}
-        if data['type'] in ['select', 'multiselect', 'radio']:
+        field_type = data['type']
+        if field_type in ['input', 'textarea']:
+            field_attrs['max_length'] = data.get('maxlength')
+        elif field_type in ['select', 'multiselect', 'radio']:
             field_attrs['choices'] = tuple([(choice, choice) for choice in data['choices']])
         field_attrs.update(self.get_base_field_attrs(data))
         return field_attrs
