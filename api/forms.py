@@ -1,6 +1,6 @@
 # encoding: utf-8
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import ButtonHolder, Field, Fieldset, HTML, Layout, Submit
+from crispy_forms.layout import HTML, ButtonHolder, Field, Fieldset, Layout, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.utils.six import BytesIO
