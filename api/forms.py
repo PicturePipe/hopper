@@ -61,8 +61,15 @@ class HopperForm(forms.Form):
                     field_attrs['widget'] = widget
                 fields[name] = self.type_field_mapping[element['type']](**field_attrs)
                 if element['type'] == 'radio':
+                    # There is currently a bug in crispyform, which causes the options of
+                    # RadioSelect don't get rendered.
+                    # A issue for this bug can be found here:
+                    #
+                    # https://github.com/maraujop/django-crispy-forms/issues/337
+                    #
+                    # The following lines is a temporary and dirty fix.
                     field_layout.append(
-                        HTML(fields[name].widget.render(name, ''))  # ToDo: add default
+                        HTML(fields[name].widget.render(name, ''))
                     )
                 else:
                     field_layout.append(Field(name))
