@@ -1,9 +1,9 @@
 # encoding: utf-8
-from rest_framework_jwt.serializers import JSONWebTokenSerializer
-from rest_framework import serializers
-from rest_framework_jwt import utils
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from rest_framework import serializers
+from rest_framework_jwt import utils
+from rest_framework_jwt.serializers import JSONWebTokenSerializer
 
 
 class UserJSONWebTokenSerializer(JSONWebTokenSerializer):

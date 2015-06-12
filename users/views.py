@@ -1,5 +1,6 @@
 # encoding: utf-8
 from rest_framework_jwt.views import ObtainJSONWebToken
+
 from .serializers import UserJSONWebTokenSerializer
 
 
