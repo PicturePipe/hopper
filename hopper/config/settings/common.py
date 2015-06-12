@@ -166,6 +166,7 @@ class Common(Configuration):
         'rest_framework',
         'rest_framework.authtoken',
         'api',
+        'users',
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
