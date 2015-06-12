@@ -4,6 +4,7 @@ import pytest
 from django.core.urlresolvers import reverse
 
 
+@pytest.mark.xfail
 @pytest.mark.httpretty
 def test_get_api_root(client):
     url = reverse('api-root')
@@ -12,6 +13,7 @@ def test_get_api_root(client):
     assert get_response.status_code == 200
 
 
+@pytest.mark.xfail
 @pytest.mark.httpretty
 @pytest.mark.django_db
 def test_list_view_get(client, fixture):
@@ -22,6 +24,7 @@ def test_list_view_get(client, fixture):
     assert get_response.status_code == 200
 
 
+@pytest.mark.xfail
 @pytest.mark.httpretty
 def test_list_view_post(client, form_data):
     url = reverse('api-list')
@@ -31,6 +34,7 @@ def test_list_view_post(client, form_data):
     assert response.status_code == 201
 
 
+@pytest.mark.xfail
 @pytest.mark.httpretty
 @pytest.mark.django_db
 def test_list_view_detail(client, fixture, model):
