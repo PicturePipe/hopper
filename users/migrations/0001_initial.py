@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
+from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
@@ -14,7 +14,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='HopperUser',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('password', models.CharField(verbose_name='password', max_length=128)),
+                ('last_login', models.DateTimeField(null=True, blank=True, verbose_name='last login')),
                 ('username', models.CharField(max_length=200)),
                 ('is_master', models.BooleanField(default=False)),
                 ('site', models.ForeignKey(to='sites.Site')),
