@@ -1,32 +1,35 @@
 # encoding: utf-8
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from rest_framework_jwt import utils
-from rest_framework_jwt.serializers import JSONWebTokenSerializer
+
+from .models import HopperUser
 
 
-class UserJSONWebTokenSerializer(JSONWebTokenSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HopperUser
+        fields = ('username', 'password')
 
-    def __init__(self, *args, **kwargs):
+    def create(self, validated_data):
         """
-        Dynamically add the USERNAME_FIELD to self.fields.
+        Create and return a new `User` instance, given the validated data.
         """
-        self.master_token = kwargs['data'].pop('master_token', None)
-        super(UserJSONWebTokenSerializer, self).__init__(*args, **kwargs)
-        self.fields[self.username_field] = serializers.CharField()
+        user = HopperUser.objects.create(**validated_data)
+        return user
 
     def validate(self, attrs):
-        # username, email? not pwd?
-        credentials = {
-            self.username_field: attrs.get(self.username_field),
-            'password': attrs.get('password')
-        }
-        if self.master_token:
-            User = utils.get_user_model()
-            user = User.objects.create(**credentials)
-            user.master_token = self.master_token
-            user.save()
-            return reverse('rest_framework_jwt.views.obtain_jwt_token')#, kwargs=attrs)
+        is_master = self.data.pop('is_master', None)
+        if is_master:
+            raise ValidationError('Unknown attribute: is_master')
         else:
-            raise ValidationError('master_token is missing')
+            master_token = self.data.pop('master_token', None)
+            if not master_token:
+                raise ValidationError('master_token not found')
+            User = utils.get_user_model()
+            master_user = User.objects.get(password=master_token)
+            if master_user:
+                attrs['site'] = master_user.site
+            else:
+                raise ValidationError('No user for this sent token.')
+        return attrs
