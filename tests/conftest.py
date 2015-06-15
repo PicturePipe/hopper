@@ -3,6 +3,7 @@ import json
 import os
 
 import pytest
+from rest_framework_jwt import utils
 
 from api.models import FormData
 
@@ -70,3 +71,11 @@ def sample_dict():
         }
     }
     return data
+
+
+@pytest.fixture
+def master_token():
+    def get_master_token(user):
+        payload = utils.jwt_payload_handler(user)
+        return utils.jwt_encode_handler(payload)
+    return get_master_token
