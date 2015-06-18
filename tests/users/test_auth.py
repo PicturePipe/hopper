@@ -1,9 +1,9 @@
 # encoding: utf-8
 import json
-import pytest
 
-from django.core.urlresolvers import reverse
+import pytest
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 
 
 def test_obtain_token_for_existing_user(client, user, credentials):
