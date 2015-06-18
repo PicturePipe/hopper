@@ -3,9 +3,11 @@ import json
 import os
 
 import pytest
+from django.contrib.sites.models import Site
 from rest_framework_jwt import utils
 
 from api.models import FormData
+from users.models import HopperUser
 
 
 @pytest.fixture
@@ -14,9 +16,23 @@ def credentials():
 
 
 @pytest.fixture
-def user(credentials, django_user_model, db):
+def user(credentials, db):
     username, password = credentials
-    return django_user_model.objects.create_user(username=username, password=password)
+    data = {
+        'username': username,
+        'site': Site.objects.get_current()
+    }
+    user = HopperUser.objects.create(**data)
+    user.set_password(password)
+    user.save()
+    return user
+
+
+@pytest.fixture
+def master_user(user):
+    user.is_master = True
+    user.save()
+    return user
 
 
 @pytest.fixture
@@ -74,8 +90,8 @@ def sample_dict():
 
 
 @pytest.fixture
-def master_token():
-    def get_master_token(user):
+def token():
+    def get_token(user):
         payload = utils.jwt_payload_handler(user)
         return utils.jwt_encode_handler(payload)
-    return get_master_token
+    return get_token
