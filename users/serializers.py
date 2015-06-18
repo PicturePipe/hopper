@@ -19,15 +19,16 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def validate(self, attrs):
-        is_master = self.data.pop('is_master', None)
+        is_master = self.initial_data.pop('is_master', None)
         if is_master:
             raise ValidationError('Unknown attribute: is_master')
         else:
-            master_token = self.data.pop('master_token', None)
+            master_token = self.initial_data.pop('master_token', None)
             if not master_token:
                 raise ValidationError('master_token not found')
             User = utils.get_user_model()
-            master_user = User.objects.get(password=master_token)
+            master_infos = utils.jwt_decode_handler(master_token)
+            master_user = User.objects.get(pk=master_infos.get('user_id'))
             if master_user:
                 attrs['site'] = master_user.site
             else:
