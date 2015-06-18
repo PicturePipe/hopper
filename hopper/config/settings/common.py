@@ -182,6 +182,9 @@ class Common(Configuration):
     DEFAULT_FROM_EMAIL = 'team@transcode.de'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+    # Authentication
+    AUTH_USER_MODEL = 'users.HopperUser'
+
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAuthenticated',
