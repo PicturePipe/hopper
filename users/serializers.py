@@ -9,7 +9,7 @@ from .models import HopperUser
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = HopperUser
-        fields = ('username', 'password')
+        fields = ('email', 'password')
 
     def create(self, validated_data):
         """
