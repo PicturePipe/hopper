@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse
 
 def test_obtain_token_for_existing_user(client, user, credentials):
     url = reverse('obtain_jwt')
-    username, password = credentials
-    data = {'username': username, 'password': password}
+    email, password = credentials
+    data = {'email': email, 'password': password}
     response = client.post(url, data=json.dumps(data), content_type='application/json')
     assert response.status_code == 200
     assert response.data.get('token')
@@ -31,7 +31,7 @@ def test_create_user_with_wrong_token(client, user, token):
 
 @pytest.mark.django_db
 def test_create_user_bad_request(client, user, token):
-    # master user can't be created via API
+    # It is not allowed to create master user via API
     url = reverse('create_user')
     data = {
         'is_master': True,
@@ -44,7 +44,7 @@ def test_create_user_bad_request(client, user, token):
 @pytest.mark.django_db
 def test_create_user_with_master_token(client, master_user, token):
     url = reverse('create_user')
-    data = {'username': 'user1', 'password': 'seCret_passw0rd',
+    data = {'email': 'user1@example.com', 'password': 'seCret_passw0rd',
         'master_token': token(master_user)}
     response = client.post(url, data=json.dumps(data), content_type='application/json',
         HTTP_AUTHORIZATION='JWT {0}'.format(token(master_user)))
