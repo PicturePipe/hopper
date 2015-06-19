@@ -19,7 +19,7 @@ requires = [
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
     'djangorestframework==3.1.1',
-    'djangorestframework-jwt==1.5.0',
+    'djangorestframework-jwt>=1.6.0',
     'envdir>=0.7',
     'psycopg2>=2.5.4',
     'pytz>=2014.10',
