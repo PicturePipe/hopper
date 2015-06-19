@@ -11,31 +11,6 @@ from users.models import HopperUser
 
 
 @pytest.fixture
-def credentials():
-    return ('user@example.com', 'testpwd')
-
-
-@pytest.fixture
-def user(credentials, db):
-    email, password = credentials
-    data = {
-        'email': email,
-        'site': Site.objects.get_current()
-    }
-    user = HopperUser.objects.create(**data)
-    user.set_password(password)
-    user.save()
-    return user
-
-
-@pytest.fixture
-def master_user(user):
-    user.is_master = True
-    user.save()
-    return user
-
-
-@pytest.fixture
 def fixture():
     def load(name):
         fixture = os.path.join(os.path.dirname(__file__), 'fixtures', name)
@@ -87,6 +62,31 @@ def sample_dict():
         }
     }
     return data
+
+
+@pytest.fixture
+def credentials():
+    return ('user@example.com', 'testpwd')
+
+
+@pytest.fixture
+def user(credentials, db):
+    email, password = credentials
+    data = {
+        'email': email,
+        'site': Site.objects.get_current()
+    }
+    user = HopperUser.objects.create(**data)
+    user.set_password(password)
+    user.save()
+    return user
+
+
+@pytest.fixture
+def master_user(user):
+    user.is_master = True
+    user.save()
+    return user
 
 
 @pytest.fixture
