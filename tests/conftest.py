@@ -7,7 +7,7 @@ from django.contrib.sites.models import Site
 from rest_framework_jwt import utils
 
 from api.models import FormData
-from users.models import HopperUser
+from users.models import User
 
 
 @pytest.fixture
@@ -76,7 +76,7 @@ def user(credentials, db):
         'email': email,
         'site': Site.objects.get_current()
     }
-    user = HopperUser.objects.create(**data)
+    user = User.objects.create(**data)
     user.set_password(password)
     user.save()
     return user

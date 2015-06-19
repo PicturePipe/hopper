@@ -3,19 +3,19 @@ from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from rest_framework_jwt import utils
 
-from .models import HopperUser
+from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = HopperUser
+        model = User
         fields = ('email', 'password')
 
     def create(self, validated_data):
         """
         Create and return a new `User` instance, given the validated data.
         """
-        user = HopperUser.objects.create(**validated_data)
+        user = User.objects.create(**validated_data)
         return user
 
     def validate(self, attrs):
@@ -26,7 +26,6 @@ class UserSerializer(serializers.ModelSerializer):
             master_token = self.initial_data.pop('master_token', None)
             if not master_token:
                 raise ValidationError('master_token not found')
-            User = utils.get_user_model()
             master_infos = utils.jwt_decode_handler(master_token)
             master_user = User.objects.get(pk=master_infos.get('user_id'))
             if master_user:

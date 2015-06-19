@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from users.models import HopperUser
+from users.models import User
 
 from .models import FormData
 
@@ -43,7 +43,7 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
         if self.instance:
             return_data['author'] = self.instance.author
         elif 'author' in data:
-            return_data['author'] = HopperUser.objects.get(pk=data['author'])
+            return_data['author'] = User.objects.get(pk=data['author'])
         form_data = data.pop('form', None)
         form_data_keys = ['method', 'action', 'enctype', 'title', 'help_text', 'css_classes',
             'elements_css_classes', 'elements']

@@ -183,7 +183,7 @@ class Common(Configuration):
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
     # Authentication
-    AUTH_USER_MODEL = 'users.HopperUser'
+    AUTH_USER_MODEL = 'users.User'
 
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (
