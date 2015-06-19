@@ -12,14 +12,14 @@ from users.models import HopperUser
 
 @pytest.fixture
 def credentials():
-    return ('testuser', 'testpwd')
+    return ('user@example.com', 'testpwd')
 
 
 @pytest.fixture
 def user(credentials, db):
-    username, password = credentials
+    email, password = credentials
     data = {
-        'username': username,
+        'email': email,
         'site': Site.objects.get_current()
     }
     user = HopperUser.objects.create(**data)
