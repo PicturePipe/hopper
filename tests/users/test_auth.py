@@ -25,7 +25,7 @@ def test_create_user_with_wrong_token(client, user, token):
     url = reverse('create_user')
     data = {}
     response = client.post(url, data=json.dumps(data), content_type='application/json',
-        HTTP_AUTHORIZATION='JWT {0}'.format('abc'))
+        HTTP_AUTHORIZATION='JWT {0}'.format(token(user)[:-1]))
     assert response.status_code == 403
 
 
