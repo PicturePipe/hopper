@@ -1,22 +1,21 @@
+body {
+  background: transparent url("../images/crossword.png") repeat scroll 0 0;
+}
 
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.top-bar, .top-bar ul li, .top-bar ul li a, .top-bar ul li a:hover {
+  background-color: #486070!important;
+}
+.top-bar a {
+  color: #FFFFFF!important;
+  -webkit-transition: color 0.2s ease;
+  -webkit-transition-delay: 0s;
+  -moz-transition: color 0.2s ease;
+  -moz-transition-delay: 0s;
+  -o-transition: color 0.2s ease;
+  -o-transition-delay: 0s;
+  transition: color 0.2s ease;
+  transition-delay: 0s;
+}
+.top-bar a:hover {
+  color: #46CFAF!important;
+}
