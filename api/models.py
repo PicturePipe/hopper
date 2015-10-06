@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import json
+import sys
 from collections import OrderedDict
 
 from django.conf import settings
@@ -88,7 +89,7 @@ class FormData(models.Model):
             if element.get('type') == 'fieldset':
                 ordered_elements[name]['elements'] = cls.order_by_weight(element['elements'])
         return OrderedDict(
-            sorted(ordered_elements.items(), key=lambda element: element[1].get('weight', 10000))
+            sorted(ordered_elements.items(), key=lambda element: element[1].get('weight', sys.maxsize))
         )
 
 
