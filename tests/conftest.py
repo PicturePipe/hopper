@@ -8,17 +8,6 @@ from api.models import FormData
 
 
 @pytest.fixture
-def credentials():
-    return ('testuser', 'testpwd')
-
-
-@pytest.fixture
-def user(credentials, django_user_model, db):
-    username, password = credentials
-    return django_user_model.objects.create_user(username=username, password=password)
-
-
-@pytest.fixture
 def fixture():
     def load(name):
         fixture = os.path.join(os.path.dirname(__file__), 'fixtures', name)
@@ -70,3 +59,10 @@ def sample_dict():
         }
     }
     return data
+
+
+@pytest.fixture
+def login(client, user):
+    """Return the User instance after logging the user in."""
+    assert client.login(user=user.username, password=user.password)
+    return user

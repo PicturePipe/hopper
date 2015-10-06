@@ -23,6 +23,7 @@ def test_list_view_get(client, fixture):
 
 
 @pytest.mark.httpretty
+@pytest.mark.django_db
 def test_list_view_post(client, form_data):
     url = reverse('api-list')
     httpretty.register_uri(httpretty.POST, url, body=form_data,
@@ -40,3 +41,11 @@ def test_list_view_detail(client, fixture, model):
     response = client.get(url)
     assert response.status_code == 200
     assert response.data['url'].startswith('http://')
+
+
+@pytest.mark.django_db
+def test_list_view(client, login, form):
+    url = reverse('formdata_list')
+    response = client.get(url)
+    assert response.status_code == 200
+    assert len(response.context['formdata_list']) == 1
