@@ -7,7 +7,7 @@ from rest_framework import routers
 from api.views import FormDataViewSet
 
 router = routers.DefaultRouter()
-router.register(r'api', FormDataViewSet, base_name='api')
+router.register(r'v1', FormDataViewSet, base_name='api')
 
 urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
