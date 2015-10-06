@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/$', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
+    url(r'^forms/', include('form_data.urls')),
     url(r'^', include('landingpage.urls'))
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
