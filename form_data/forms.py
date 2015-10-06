@@ -111,3 +111,12 @@ class HopperForm(forms.Form):
 
 class FormDataCreateForm(forms.Form):
     title = forms.CharField(label=_('Title'), max_length=200)
+    error_css_class = 'error'
+
+    def __init__(self, *args, **kwargs):
+        super(FormDataCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('title'),
+            Submit('Save', value='save', css_class="button small success")
+        )
