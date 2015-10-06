@@ -1,0 +1,12 @@
+{
+  "name": "hopper",
+  "version": "0.1.0",
+  "homepage": "https://github.com/transcode-de/hopper",
+  "authors": [
+    "Max Brauer <max@transcode.de>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "foundation": "~5.5.2"
+  }
+}

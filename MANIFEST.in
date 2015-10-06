@@ -4,6 +4,7 @@ include .coveragerc
 include LICENSE
 include Makefile
 include tox.ini
+include bower.json
 exclude .bumpversion.cfg
 exclude .editorconfig
 exclude *.yml
@@ -12,6 +13,7 @@ recursive-include docs *.rst conf.py Makefile make.bat
 recursive-include hopper *
 recursive-include tests *
 recursive-include requirements *.txt
+recursive-include landingpage *
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

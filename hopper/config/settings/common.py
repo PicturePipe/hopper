@@ -119,6 +119,7 @@ class Common(Configuration):
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
         os.path.join(BaseDir.BASE_DIR, 'static'),
+        os.path.join(BaseDir.BASE_DIR, '..', 'bower_components')
     )
 
     STATICFILES_FINDERS = (
@@ -166,6 +167,7 @@ class Common(Configuration):
         'rest_framework',
         'rest_framework.authtoken',
         'api',
+        'landingpage',
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
