@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
 
+from . import managers
 from .forms import HopperForm
 
 
@@ -36,6 +37,8 @@ class FormData(models.Model):
     elements = HStoreField()
     elements_css_classes = models.TextField(verbose_name='Field CSS classes')
     html = models.TextField(verbose_name='HTML', editable=False)
+
+    objects = managers.FormDataManager.from_queryset(managers.FormDataQuerySet)()
 
     def __str__(self):
         return self.title
