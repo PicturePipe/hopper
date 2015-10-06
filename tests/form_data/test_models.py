@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 
-from api.models import FormData
+from form_data.models import FormData
 
 
 def test_convert_to_dict(sample_dict):

@@ -1,5 +1,5 @@
 # encoding: utf-8
-from api.models import FormData
+from form_data.models import FormData
 from api.serializers import FormDataSerializer
 
 

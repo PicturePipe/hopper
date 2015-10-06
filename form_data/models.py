@@ -84,7 +84,7 @@ def render_form_data_html(sender, instance, created, raw, **kwargs):
     if not raw:
         # to prevent cyclic imports
         from rest_framework.renderers import JSONRenderer
-        from .serializers import FormDataSerializer
+        from api.serializers import FormDataSerializer
         data = FormDataSerializer(instance).data
         instance.html = HopperForm(
             data=JSONRenderer().render(data)
