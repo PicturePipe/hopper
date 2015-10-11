@@ -3,8 +3,10 @@ import json
 import os
 
 import pytest
+from pytest_factoryboy import register
 
 from api.models import FormData
+from tests import factories as global_factories
 
 
 @pytest.fixture
@@ -60,9 +62,5 @@ def sample_dict():
     }
     return data
 
-
-@pytest.fixture
-def login(client, user):
-    """Return the User instance after logging the user in."""
-    assert client.login(user=user.username, password=user.password)
-    return user
+register(global_factories.UserFactory, 'user')
+register(global_factories.UserFactory, 'alternative_user')
