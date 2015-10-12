@@ -9,6 +9,9 @@
 {% block content %}
 <div class="row">
   <div class="large-12 columns">
+    <div class="button success">
+      <a href="{% url 'form_data_create' %}">{% trans "Add Form" %} <i class="fa fa-plus"> </i></a>
+    </div>
     <table>
       <thead>
         <tr>
@@ -31,9 +34,6 @@
       {% endfor %}
       </tbody>
     </table>
-    <div>
-      <a href="{% url 'form_data_create' %}">{% trans "Add Form" %} <i class="fa fa-plus"> </i></a>
-    </div>
   </div>
 </div>
 {% endblock content %}
