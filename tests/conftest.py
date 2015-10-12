@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from api.models import FormData
+from form_data.models import FormData
 
 
 @pytest.fixture

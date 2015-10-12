@@ -1,7 +1,8 @@
 # encoding: utf-8
 from rest_framework import viewsets
 
-from .models import FormData
+from form_data.models import FormData
+
 from .serializers import FormDataSerializer
 
 

@@ -166,6 +166,7 @@ class Common(Configuration):
         'crispy_forms',
         'rest_framework',
         'rest_framework.authtoken',
+        'form_data',
         'api',
         'landingpage',
     )
