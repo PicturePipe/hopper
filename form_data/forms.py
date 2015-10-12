@@ -3,6 +3,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import ButtonHolder, Field, Fieldset, Layout, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInput, EmailInput,
                                   FileInput, HiddenInput, NumberInput, PasswordInput, RadioSelect,
                                   Select, SelectMultiple, Textarea, TextInput, URLInput)
@@ -106,3 +107,16 @@ class HopperForm(forms.Form):
             stream = BytesIO(data)
             data = JSONParser().parse(stream)
         return data
+
+
+class FormDataCreateForm(forms.Form):
+    title = forms.CharField(label=_('Title'), max_length=200)
+    error_css_class = 'error'
+
+    def __init__(self, *args, **kwargs):
+        super(FormDataCreateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('title'),
+            Submit('Save', value='save', css_class="button small success")
+        )

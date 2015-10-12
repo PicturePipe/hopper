@@ -14,6 +14,7 @@ recursive-include hopper *
 recursive-include tests *
 recursive-include requirements *.txt
 recursive-include landingpage *
+recursive-include form_data *
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

@@ -1,8 +1,8 @@
 # encoding: utf-8
 import pytest
 
-from api.models import FormData
 from api.serializers import FormDataSerializer
+from form_data.models import FormData
 
 
 @pytest.mark.django_db

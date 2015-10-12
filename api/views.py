@@ -2,7 +2,7 @@
 from django.views import generic
 from rest_framework import viewsets
 
-from . import models
+from form_data.models import FormData
 from .serializers import FormDataSerializer
 
 

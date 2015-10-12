@@ -5,8 +5,13 @@ import os
 import pytest
 from pytest_factoryboy import register
 
-from api.models import FormData
+from form_data.models import FormData
 from tests import factories as global_factories
+
+
+@pytest.fixture
+def credentials():
+    return ('testuser', 'testpwd')
 
 
 @pytest.fixture
@@ -39,6 +44,13 @@ def model_data(user, fixture):
 
 @pytest.fixture
 def model(model_data, user):
+    model_data['form']['author'] = user
+    return FormData.objects.create(**model_data['form'])
+
+
+@pytest.fixture
+def form_with_other_user(model_data, django_user_model):
+    user = django_user_model.objects.create_user(username='foo', password='bar')
     model_data['form']['author'] = user
     return FormData.objects.create(**model_data['form'])
 

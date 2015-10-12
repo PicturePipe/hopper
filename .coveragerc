@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = hopper, api
+source = hopper, api, form_data
 omit =
     *migrations*
     *test*
