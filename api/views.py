@@ -1,7 +1,7 @@
 # encoding: utf-8
 from rest_framework import viewsets
 
-from form_data.models import FormData
+from form_data import models
 
 from .serializers import FormDataSerializer
 
@@ -11,7 +11,7 @@ class FormDataViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing form instances.
     """
     serializer_class = FormDataSerializer
-    queryset = FormData.objects.all()
+    queryset = models.FormData.objects.all()
 
     def get_serializer(self, *args, **kwargs):
         """

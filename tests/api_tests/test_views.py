@@ -23,6 +23,7 @@ def test_list_view_get(client, fixture):
 
 
 @pytest.mark.httpretty
+@pytest.mark.django_db
 def test_list_view_post(client, form_data):
     url = reverse('api-list')
     httpretty.register_uri(httpretty.POST, url, body=form_data,

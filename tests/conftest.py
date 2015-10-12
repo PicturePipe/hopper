@@ -3,19 +3,10 @@ import json
 import os
 
 import pytest
+from pytest_factoryboy import register
 
 from form_data.models import FormData
-
-
-@pytest.fixture
-def credentials():
-    return ('testuser', 'testpwd')
-
-
-@pytest.fixture
-def user(credentials, django_user_model, db):
-    username, password = credentials
-    return django_user_model.objects.create_user(username=username, password=password)
+from tests import factories as global_factories
 
 
 @pytest.fixture
@@ -77,3 +68,19 @@ def sample_dict():
         }
     }
     return data
+
+register(global_factories.UserFactory, 'user')
+register(global_factories.UserFactory, 'alternative_user')
+
+
+@pytest.fixture
+def password(scope='module'):
+    """Return the default test password."""
+    return "test"
+
+
+@pytest.fixture
+def login(client, user, password):
+    """Return the User instance after logging the user in."""
+    assert client.login(username=user.username, password=password)
+    return user

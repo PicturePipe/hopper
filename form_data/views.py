@@ -1,26 +1,27 @@
 from braces.views import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
-from django.views.generic import FormView, DetailView
+from django.views import generic
 from rest_framework.authtoken.models import Token
 
 from .forms import FormDataCreateForm
-from .models import FormData
+from . import models
 
 
-class FormDataCreateView(LoginRequiredMixin, FormView):
+class FormDataCreateView(LoginRequiredMixin, generic.FormView):
     form_class = FormDataCreateForm
-    success_url = '/'
+    success_url = reverse_lazy('form_data_list')
     template_name = 'form_data/formdata_create_view.html'
 
     def form_valid(self, form):
-        FormData.objects.create(author=self.request.user, title=form.cleaned_data['title'])
+        models.FormData.objects.create(author=self.request.user, title=form.cleaned_data['title'])
         return redirect(self.get_success_url())
 
 
-class FormDataUpdateView(DetailView):
+class FormDataUpdateView(generic.DetailView):
     template_name = 'form_data/formdata_update_view.html'
-    model = FormData
+    model = models.FormData
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -31,3 +32,12 @@ class FormDataUpdateView(DetailView):
     def get_token(self):
         token, created = Token.objects.get_or_create(user=self.request.user)
         return token.key
+
+
+class FormDataListView(LoginRequiredMixin, generic.ListView):
+    """View that shows all from of the current user."""
+    model = models.FormData
+    ordering = 'title'
+
+    def get_queryset(self):
+        return models.FormData.objects.user_related(self.request.user.id)
