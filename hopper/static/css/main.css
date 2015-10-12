@@ -19,3 +19,6 @@ body {
 .top-bar a:hover {
   color: #46CFAF!important;
 }
+.top-space {
+    margin-top: 20px;
+}
