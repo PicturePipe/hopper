@@ -34,7 +34,7 @@ class FormDataUpdateView(generic.DetailView):
         return token.key
 
 
-class FormDataListView(generic.ListView):
+class FormDataListView(LoginRequiredMixin, generic.ListView):
     """View that shows all from of the current user."""
     model = models.FormData
     ordering = 'title'
