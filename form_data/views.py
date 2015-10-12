@@ -1,5 +1,6 @@
 from braces.views import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.views import generic
 from rest_framework.authtoken.models import Token
@@ -10,7 +11,7 @@ from . import models
 
 class FormDataCreateView(LoginRequiredMixin, generic.FormView):
     form_class = FormDataCreateForm
-    success_url = '/'
+    success_url = reverse_lazy('form_data_list')
     template_name = 'form_data/formdata_create_view.html'
 
     def form_valid(self, form):
