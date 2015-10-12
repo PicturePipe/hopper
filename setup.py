@@ -29,7 +29,7 @@ docs_requires = [
 ]
 
 tests_requires = [
-    'coverage==3.7.1',
+    'coverage==4.0.0',
     'fake-factory==0.5.3',
     'freezegun==0.2.8',
     'httpretty>=0.8.0,!=0.8.1,!=0.8.2,!=0.8.3,!=0.8.7,!=0.8.8,!=0.8.9,!=0.8.10',
