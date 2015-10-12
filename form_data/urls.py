@@ -6,5 +6,5 @@ from . import views
 urlpatterns = patterns('',
     url(r'create/$', views.FormDataCreateView.as_view(), name='form_data_create'),
     url(r'update/(?P<pk>\d+)/$', views.FormDataUpdateView.as_view(), name='form_data_update'),
-    url(r'^list/$', views.FormDataListView.as_view(), name='formdata_list'),
+    url(r'^list/$', views.FormDataListView.as_view(), name='form_data_list'),
 )
