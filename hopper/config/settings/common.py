@@ -184,6 +184,10 @@ class Common(Configuration):
     DEFAULT_FROM_EMAIL = 'team@transcode.de'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+    LOGIN_URL = '/login'
+    LOGOUT_URL = '/logout'
+    LOGIN_REDIRECT_URL = '/forms/list'
+
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.AllowAny',
