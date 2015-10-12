@@ -10,11 +10,6 @@ from tests import factories as global_factories
 
 
 @pytest.fixture
-def credentials():
-    return ('testuser', 'testpwd')
-
-
-@pytest.fixture
 def fixture():
     def load(name):
         fixture = os.path.join(os.path.dirname(__file__), 'fixtures', name)
@@ -76,3 +71,16 @@ def sample_dict():
 
 register(global_factories.UserFactory, 'user')
 register(global_factories.UserFactory, 'alternative_user')
+
+
+@pytest.fixture
+def password(scope='module'):
+    """Return the default test password."""
+    return "test"
+
+
+@pytest.fixture
+def login(client, user, password):
+    """Return the User instance after logging the user in."""
+    assert client.login(username=user.username, password=password)
+    return user

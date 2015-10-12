@@ -2,7 +2,7 @@
 import pytest
 from pytest_factoryboy import LazyFixture
 
-from api import models
+from form_data import models
 
 
 @pytest.mark.django_db

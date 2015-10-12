@@ -1,6 +1,8 @@
 # encoding: utf-8
 import json
 
+import pytest
+
 from form_data.models import FormData
 
 
@@ -18,6 +20,7 @@ def test_convert_values_to_string(sample_dict):
     assert all(type(v) == str for _, v in converted_data.items())
 
 
+@pytest.mark.django_db
 def test_setting(model, model_data):
     """Test for correct behavior of signal receiver
 

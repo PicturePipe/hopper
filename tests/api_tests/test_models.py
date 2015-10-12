@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from api.models import FormData
+from form_data.models import FormData
 
 
 def test_convert_to_dict(sample_dict):

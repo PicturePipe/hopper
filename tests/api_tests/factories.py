@@ -2,7 +2,7 @@
 
 import factory
 
-from api import models
+from form_data import models
 from tests import factories as global_factories
 
 
