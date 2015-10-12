@@ -21,9 +21,9 @@
       <tbody>
       {% for form in formdata_list %}
         <tr>
-          <td>form.title</td>
-          <td>form.url</td>
-          <td><a href="">{% trans "Edit" %} <i class="fa fa-pencil"> </i></a></td>
+          <td> {{ form.title }}</td>
+          <td><a href="{% url 'api-detail' form.id %}">{% url 'api-detail' form.id %}</a></td>
+          <td><a href="{% url 'form_data_update' form.id %}">{% trans "Edit" %} <i class="fa fa-pencil"> </i></a></td>
           <td><a href="">{% trans "Delete" %} <i class="fa fa-trash-o"> </i></a></td>
         </tr>
       {% empty %}
@@ -31,6 +31,9 @@
       {% endfor %}
       </tbody>
     </table>
+    <div>
+      <a href="{% url 'form_data_create' %}">{% trans "Add Form" %} <i class="fa fa-plus"> </i></a>
+    </div>
   </div>
 </div>
 {% endblock content %}
