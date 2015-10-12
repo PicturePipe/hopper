@@ -33,3 +33,11 @@ def test_form_data_update_ownership_create_token(model, user, login, client):
     client.get(reverse('form_data_update', kwargs={'pk': model.pk}))
     assert Token.objects.count()
     assert Token.objects.filter(user=user).count()
+
+
+@pytest.mark.django_db
+def test_list_view(client, login, form):
+    url = reverse('form_data_list')
+    response = client.get(url)
+    assert response.status_code == 200
+    assert len(response.context['formdata_list']) == 1
