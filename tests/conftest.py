@@ -53,6 +53,13 @@ def model(model_data, user):
 
 
 @pytest.fixture
+def form_with_other_user(model_data, django_user_model):
+    user = django_user_model.objects.create_user(username='foo', password='bar')
+    model_data['form']['author'] = user
+    return FormData.objects.create(**model_data['form'])
+
+
+@pytest.fixture
 def form_data(fixture, user):
     form_data = json.loads(fixture('simple_form.json'))
     form_data['author'] = user.id
