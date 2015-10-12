@@ -13,6 +13,8 @@ before_script:
   - createdb -U hopper hopper
 script:
   - tox
+after_success:
+  - codecov
 sudo: false
 notifications:
   slack:

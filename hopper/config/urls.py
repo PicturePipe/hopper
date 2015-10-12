@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/$', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^list/$', FormDataListView.as_view(), name='formdata_list'),
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'^', include('landingpage.urls'))
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

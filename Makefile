@@ -86,6 +86,7 @@ develop:
 	pip install -U -r requirements/dev.txt
 	pip install -U -e .[docs]
 	pip install -U -e .[tests]
+	bower install
 
 dist: clean
 	python setup.py sdist bdist_wheel
