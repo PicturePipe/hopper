@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     url(r'^api/', include(router.urls)),
     url(r'^forms/', include('form_data.urls')),
     url(r'^login/$', auth.views.login, {'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', auth.views.logout, {'template_name': 'logout.html'}, name='logout')
+    url(r'^logout/$', auth.views.logout, {'template_name': 'logout.html'}, name='logout'),
     url(r'^', include('landingpage.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
