@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, patterns, url
 from django.conf.urls.static import static
-from django.contrib import admin
+from django.contrib import admin, auth
 from rest_framework import routers
 
 from api.views import FormDataViewSet
@@ -15,5 +15,7 @@ urlpatterns = patterns('',
     url(r'^auth/$', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
     url(r'^forms/', include('form_data.urls')),
-    url(r'^', include('landingpage.urls'))
+    url(r'^login/$', auth.views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', auth.views.logout, {'template_name': 'logout.html'}, name='logout'),
+    url(r'^', include('landingpage.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

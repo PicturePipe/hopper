@@ -35,16 +35,14 @@
           <li class="divider"></li>
           {% if user.is_authenticated %}
           <li class="has-dropdown">
-            <a href="#">{{ user.get_full_name }}</a>
+            <a href="#">{{ user.username }}</a>
             <ul class="dropdown">
-              <li><a href="#">Account</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Logout</a></li>
+              <li><a href="{% url 'logout'%}">Logout</a></li>
             </ul>
           </li>
           {% else %}
           <li>
-            <a href="#">Login</a>
+            <a href="{% url 'login'%}">Login</a>
           </li>
           {% endif %}
           <li class="divider"></li>
