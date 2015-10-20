@@ -51,13 +51,6 @@ def form_with_other_user(model_data, django_user_model):
 
 
 @pytest.fixture
-def form_data(fixture, user):
-    form_data = json.loads(fixture('simple_form.json'))
-    form_data['author'] = user.id
-    return json.dumps(form_data)
-
-
-@pytest.fixture
 def sample_dict():
     data = {
         '1': 'string',

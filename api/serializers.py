@@ -1,5 +1,7 @@
 # encoding: utf-8
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
@@ -7,6 +9,9 @@ from form_data.models import FormData
 
 
 class FormDataSerializer(serializers.HyperlinkedModelSerializer):
+    AUTHOR_NOT_FOUND = _("You haven't send an author.")
+    USER_NOT_FOUND = _("No author with this id found.")
+
     author = serializers.CharField()
     title = serializers.CharField()
     form_id = serializers.CharField()
@@ -41,15 +46,21 @@ class FormDataSerializer(serializers.HyperlinkedModelSerializer):
         return_data = {}
         if self.instance:
             return_data['author'] = self.instance.author
-        elif 'author' in data:
-            return_data['author'] = get_user_model().objects.get(pk=data['author'])
+        else:
+            try:
+                data['author']
+            except KeyError:
+                raise serializers.ValidationError(self.AUTHOR_NOT_FOUND)
+            try:
+                return_data['author'] = get_user_model().objects.get(pk=data['author'])
+            except ObjectDoesNotExist:
+                raise serializers.ValidationError(self.USER_NOT_FOUND)
+
         form_data = data.pop('form', None)
         form_data_keys = ['method', 'action', 'enctype', 'title', 'help_text', 'css_classes',
             'elements_css_classes', 'elements']
         return_data.update({key: form_data.get(key, None) for key in form_data_keys})
-        form_id = form_data.get('id', None)
-        if form_id:
-            return_data['form_id'] = form_id
+        return_data['form_id'] = form_data.get('id', "")
         return return_data
 
     def to_representation(self, obj):
