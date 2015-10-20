@@ -7,6 +7,8 @@ env:
   - TOXENV=flake8
   - TOXENV=isort
   - TOXENV=manifest
+addons:
+  postgresql: 9.4
 before_script:
   - createuser -S -d -R -e hopper
   - make create-db
