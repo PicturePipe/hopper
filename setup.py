@@ -21,6 +21,7 @@ requires = [
     'django-cors-headers>=1.1.0',
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
+    'django-pgjson==0.3.1',
     'djangorestframework==3.1.1',
     'envdir>=0.7',
     'psycopg2>=2.5.4',
