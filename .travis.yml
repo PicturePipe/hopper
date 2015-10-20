@@ -8,9 +8,8 @@ env:
   - TOXENV=isort
   - TOXENV=manifest
 before_script:
-  - psql -d template1 -c 'create extension hstore;'
-  - createuser -d -e hopper
-  - createdb -U hopper hopper
+  - createuser -S -d -R -e hopper
+  - make create-db
 script:
   - tox
 after_success:

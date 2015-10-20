@@ -15,7 +15,7 @@ endef
 $(eval $(call CMDS, $(cmd)))
 
 .PHONY: help clean clean-build clean-docs clean-pyc clean-test cmd coverage coverage-html \
-	create-db develop docs isort migrate open-docs serve-docs runserver shell test test-all \
+	create-db create-dbuser develop docs isort migrate open-docs serve-docs runserver shell test test-all \
 	test-upload upload
 
 help:
@@ -28,7 +28,8 @@ help:
 	@echo "  cmd=<manage.py command>  to use any other manage.py command"
 	@echo "  coverage                 to generate a coverage report with the default Python"
 	@echo "  coverage-html            to generate and open a HTML coverage report with the default Python"
-	@echo "  create-db                to create a new PostgreSQL user and database"
+	@echo "  create-db                to create a new PostgreSQL database"
+	@echo "  create-dbuser            to create a new PostgreSQL user"
 	@echo "  develop                  to install (or update) all packages required for development"
 	@echo "  dist                     to package a release"
 	@echo "  docs                     to build the project documentation as HTML"
@@ -78,8 +79,10 @@ coverage-html: coverage
 	python -c "import os, webbrowser; webbrowser.open('file://{}/htmlcov/index.html'.format(os.getcwd()))"
 
 create-db:
-	createuser -d -e -P hopper
-	createdb -U hopper hopper
+	createdb -U hopper -l en_US.utf-8 -E utf-8 -O hopper -T template0 -e hopper
+
+create-dbuser:
+	createuser -S -d -R -P -e hopper
 
 develop:
 	pip install -U pip setuptools wheel
