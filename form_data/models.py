@@ -44,7 +44,6 @@ class FormData(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        # self.elements = self.convert_values_to_string(self.elements)
         if not self.id:
             self.date_created = now()
         self.date_updated = now()
