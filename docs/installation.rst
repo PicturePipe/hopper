@@ -9,12 +9,9 @@ Install the packages for development::
 
     $ make develop
 
-Before creating the database install PostgreSQL extension hstore::
-
-    $ psql -d template1 -c 'create extension hstore;'
-
 Then create the new PostgreSQL user and database::
 
+    $ make create-dbuser
     $ make create-db
 
 Now create the database tables::

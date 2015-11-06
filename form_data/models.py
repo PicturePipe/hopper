@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import json
 
 from django.conf import settings
-from django.contrib.postgres.fields import HStoreField
+from django_pgjson.fields import JsonField
 from django.db import models
 from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
@@ -34,7 +34,7 @@ class FormData(models.Model):
         default=POST)
     help_text = models.TextField(verbose_name='Help text', null=True, blank=True)
     css_classes = models.TextField(verbose_name='Form CSS classes')
-    elements = HStoreField()
+    elements = JsonField(default={})
     elements_css_classes = models.TextField(verbose_name='Field CSS classes')
     html = models.TextField(verbose_name='HTML', editable=False)
 
@@ -44,41 +44,10 @@ class FormData(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.elements = self.convert_values_to_string(self.elements)
         if not self.id:
             self.date_created = now()
         self.date_updated = now()
         super(FormData, self).save(*args, **kwargs)
-
-    @classmethod
-    def convert_to_dict(cls, elements):
-        """Converts flat dict to normal dict
-        The current implementation of hstore only allows flat
-        dictionaries, all values of nested dicts are strings and have to
-        convert to python objects."""
-        converted_elements = {}
-        if elements:
-            if type(elements) != dict:
-                converted_elements = json.loads(elements)
-            else:
-                for key, element in elements.items():
-                    if type(element) == str:
-                        converted_elements[key] = json.loads(element)
-                    else:
-                        converted_elements[key] = elements[key]
-        return converted_elements
-
-    @classmethod
-    def convert_values_to_string(cls, elements):
-        """Converts normal dict to flat dict
-        The current implementation of hstore only allows flat
-        dictionaries, all values of nested dicts have to convert to
-        string."""
-        converted_elements = {}
-        if elements:
-            for key, element in elements.items():
-                converted_elements[key] = json.dumps(element)
-        return converted_elements
 
 
 @receiver(models.signals.post_save, sender=FormData)
@@ -91,4 +60,4 @@ def render_form_data_html(sender, instance, created, raw, **kwargs):
         data = FormDataSerializer(instance).data
         instance.html = HopperForm(
             data=JSONRenderer().render(data)
-        ).render_as_form().replace('\n', '').replace('\t', '')
+        ).render_as_form()

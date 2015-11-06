@@ -20,3 +20,6 @@ def test_serializer_with_minimal_model(user):
     model = FormData.objects.create(**{'author': user})
     serializer = FormDataSerializer(model)
     assert serializer.data['author'] == user.pk
+    # test coverage increasers
+    model.save()
+    assert str(model) == model.title
