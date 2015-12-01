@@ -7,8 +7,8 @@
 {% block early_js %}{% endblock early_js %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'hopper-frontend/vendor-d41d8cd98f00b204e9800998ecf8427e.css' %}">
-  <link rel="stylesheet" href="{% static 'hopper-frontend/assets/hopper-frontend-78b5bb33e856d29d165988f5e9fde2b4.css' %}">
+  <link rel="stylesheet" href="{% static 'hopper-frontend/assets/vendor-d41d8cd98f00b204e9800998ecf8427e.css' %}">
+  <link rel="stylesheet" href="{% static 'hopper-frontend/assets/hopper-frontend-7c639cd09d3b212047ab59214080791b.css' %}">
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
 
 {% endblock styles %}
@@ -25,6 +25,6 @@
         'Authorization': 'Token {{ view.get_token }}'
     };
   </script>
-  <script src="{% static 'hopper-frontend/assets/vendor-db575f029f4bfc080485d516718c3abf.js' %}"></script>
-  <script src="{% static 'hopper-frontend/assets/hopper-frontend-8943029e2f4389537f2fa7596adec5f9.js' %}"></script>
+  <script src="{% static 'hopper-frontend/assets/vendor-d4a5c6f619518cf2278aaa1a2942f0ab.js' %}"></script>
+  <script src="{% static 'hopper-frontend/assets/hopper-frontend-b238d19d91d5584417b98e1fc25c3392.js' %}"></script>
 {% endblock js %}
