@@ -19,6 +19,7 @@ requires = [
     '# added to requirements/forks.txt that supports Django 1.8.',
     '# django-configurations==0.8',
     'django-cors-headers>=1.1.0',
+    'django-countries==3.4.1',
     'django-crispy-forms>=1.4.0',
     'django-grappelli>=2.6.3',
     '# With Django>=1.9.0 we can remove django-pgjson because JSONField would be in the core:',

@@ -8,6 +8,7 @@ from django.forms.widgets import (CheckboxSelectMultiple, DateInput, DateTimeInp
                                   FileInput, HiddenInput, NumberInput, PasswordInput, RadioSelect,
                                   Select, SelectMultiple, Textarea, TextInput, URLInput)
 from django.utils.six import BytesIO
+from django_countries.widgets import CountrySelectWidget
 from rest_framework.parsers import JSONParser
 
 
@@ -28,6 +29,7 @@ class HopperForm(forms.Form):
         'url': URLInput,
         'password': PasswordInput,
         'hidden': HiddenInput,
+        'country': CountrySelectWidget
     }
 
     def __init__(self, *args, **kwargs):
