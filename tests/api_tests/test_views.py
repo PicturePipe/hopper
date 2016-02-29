@@ -5,7 +5,7 @@ import httpretty
 import pytest
 from django.core.urlresolvers import reverse
 
-from api.serializers import FormDataSerializer
+from hopper.apps.api.serializers import FormDataSerializer
 
 
 @pytest.mark.httpretty

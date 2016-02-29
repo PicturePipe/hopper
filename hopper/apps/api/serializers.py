@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from form_data.models import FormData
+from hopper.apps.form_data.models import FormData
 
 
 class FormDataSerializer(serializers.HyperlinkedModelSerializer):

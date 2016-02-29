@@ -5,8 +5,8 @@ from django.shortcuts import redirect
 from django.views import generic
 from rest_framework.authtoken.models import Token
 
-from .forms import FormDataCreateForm
 from . import models
+from .forms import FormDataCreateForm
 
 
 class FormDataCreateView(LoginRequiredMixin, generic.FormView):

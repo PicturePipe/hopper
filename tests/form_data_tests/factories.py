@@ -2,7 +2,7 @@
 
 import factory
 
-from form_data import models
+from hopper.apps.form_data import models
 from tests import factories as global_factories
 
 

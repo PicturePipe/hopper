@@ -1,17 +1,15 @@
 # encoding: utf-8
 from __future__ import unicode_literals
 
-import json
-
 from django.conf import settings
-from django_pgjson.fields import JsonField
 from django.db import models
 from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.timezone import now
+from django_pgjson.fields import JsonField
 
-from .forms import HopperForm
 from . import managers
+from .forms import HopperForm
 
 
 @python_2_unicode_compatible
@@ -56,7 +54,7 @@ def render_form_data_html(sender, instance, created, raw, **kwargs):
     if not raw:
         # to prevent cyclic imports
         from rest_framework.renderers import JSONRenderer
-        from api.serializers import FormDataSerializer
+        from hopper.apps.api.serializers import FormDataSerializer
         data = FormDataSerializer(instance).data
         instance.html = HopperForm(
             data=JSONRenderer().render(data)

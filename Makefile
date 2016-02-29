@@ -99,7 +99,7 @@ docs:
 	$(MAKE) -C docs html BUILDDIR=$(BUILDDIR) SPHINXOPTS='$(SPHINXOPTS)'
 
 isort:
-	isort --recursive setup.py hopper/ tests/ api/
+	isort --recursive setup.py hopper/ tests/
 
 migrate:
 	envdir envs/$(ENV) hopper/manage.py migrate

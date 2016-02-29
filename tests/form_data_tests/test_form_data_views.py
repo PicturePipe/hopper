@@ -11,7 +11,7 @@ def test_form_data_create_login_required(client):
 
 @pytest.mark.django_db
 def test_form_data_create_login_post(user, login, client):
-    from form_data.models import FormData
+    from hopper.apps.form_data.models import FormData
     assert not FormData.objects.count()
     response = client.post(reverse('form_data_create'), data={'title': 'Test'})
     assert response.status_code == 302

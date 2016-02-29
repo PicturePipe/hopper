@@ -1,7 +1,7 @@
 # encoding: utf-8
 from rest_framework import viewsets
 
-from form_data import models
+from hopper.apps.form_data import models
 
 from .serializers import FormDataSerializer
 

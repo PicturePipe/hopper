@@ -43,7 +43,6 @@ tests_requires = [
     'isort==3.9.5',
     'pytest-django==2.7.0',
     'pytest-httpretty==0.2.0',
-    'pytest-pythonpath==0.6',
     'pytest==2.6.4',
     'tox==1.9.2',
 ]

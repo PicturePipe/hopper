@@ -2,7 +2,7 @@
 import pytest
 from pytest_factoryboy import LazyFixture
 
-from form_data import models
+from hopper.apps.form_data import models
 
 
 @pytest.mark.django_db

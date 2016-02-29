@@ -166,9 +166,9 @@ class Common(Configuration):
         'crispy_forms',
         'rest_framework',
         'rest_framework.authtoken',
-        'form_data',
-        'api',
-        'landingpage',
+        'hopper.apps.api',
+        'hopper.apps.form_data',
+        'hopper.apps.landingpage',
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (

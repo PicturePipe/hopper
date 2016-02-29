@@ -5,7 +5,7 @@ import os
 import pytest
 from pytest_factoryboy import register
 
-from form_data.models import FormData
+from hopper.apps.form_data.models import FormData
 from tests import factories as global_factories
 
 

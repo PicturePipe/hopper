@@ -1,7 +1,7 @@
 # encoding: utf-8
 import pytest
 
-from form_data.forms import HopperForm
+from hopper.apps.form_data.forms import HopperForm
 
 
 @pytest.mark.django_db
