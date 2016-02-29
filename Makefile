@@ -87,8 +87,8 @@ create-dbuser:
 develop:
 	pip install -U pip setuptools wheel
 	pip install -U -r requirements/dev.txt
-	pip install -U -e .[docs]
-	pip install -U -e .[tests]
+	pip install -U -r requirements/docs.txt
+	pip install -U -r requrirements/test.txt
 	bower install
 
 dist: clean

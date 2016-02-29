@@ -1,0 +1,12 @@
+# This file is used for local testing with and without tox as well as for
+# testing on continuous integration servers.
+
+coverage==4.0.0
+fake-factory==0.5.3
+freezegun==0.2.8
+httpretty==0.8.6
+isort==3.9.5
+pytest-django==2.7.0
+pytest-httpretty==0.2.0
+pytest==2.6.4
+tox==1.9.2
