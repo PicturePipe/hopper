@@ -5,6 +5,7 @@ include LICENSE
 include Makefile
 include tox.ini
 include bower.json
+include manage.py
 exclude .bumpversion.cfg
 exclude .editorconfig
 exclude *.yml

@@ -108,7 +108,7 @@ open-docs:
 	python -c "import os, webbrowser; webbrowser.open('file://{}/docs/{}/html/index.html'.format(os.getcwd(), '$(BUILDDIR)'))"
 
 runserver:
-	envdir envs/$(ENV) hopper/manage.py runserver $(PORT)
+	envdir envs/$(ENV) python manage.py runserver $(PORT)
 
 serve-docs:
 	python -c "import webbrowser; webbrowser.open('http://127.0.0.1:$(PORT)')"

@@ -139,9 +139,9 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
 
-    ROOT_URLCONF = 'config.urls'
+    ROOT_URLCONF = 'hopper.config.urls'
 
-    WSGI_APPLICATION = 'config.wsgi.application'
+    WSGI_APPLICATION = 'hopper.config.wsgi.application'
 
     TEMPLATE_DIRS = (
         os.path.join(BaseDir.BASE_DIR, 'templates'),
@@ -173,7 +173,7 @@ class Common(Configuration):
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + (
         'django.core.context_processors.request',
-        'config.context_processors.django_version',
+        'hopper.config.context_processors.django_version',
     )
 
     CRISPY_TEMPLATE_PACK = 'bootstrap3'
