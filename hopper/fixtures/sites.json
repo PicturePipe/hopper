@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "sites.site",
     "fields": {
-        "domain": "https://github.com/transcode-de/hopper",
+        "domain": "https://github.com/PicturePipe/hopper",
         "name": "Hopper"
     }
 }
