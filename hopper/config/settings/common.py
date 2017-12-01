@@ -24,7 +24,7 @@ class Common(Configuration):
     TEMPLATE_DEBUG = values.BooleanValue(DEBUG)
 
     ADMINS = (
-        ('transcode', 'traceback@transcode.de'),
+        ('development team ', 'development@picturepipe.com'),
     )
     MANAGERS = ADMINS
 
@@ -181,7 +181,7 @@ class Common(Configuration):
     GRAPPELLI_ADMIN_TITLE = 'Hopper Admin'
 
     EMAIL_SUBJECT_PREFIX = '[Hopper]'
-    DEFAULT_FROM_EMAIL = 'team@transcode.de'
+    DEFAULT_FROM_EMAIL = 'development@picturepipe.com'
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
     LOGIN_URL = '/login'
