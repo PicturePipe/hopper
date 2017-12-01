@@ -1,9 +1,9 @@
 {
   "name": "hopper",
   "version": "0.1.0",
-  "homepage": "https://github.com/transcode-de/hopper",
+  "homepage": "https://github.com/PicturePipe/hopper",
   "authors": [
-    "Max Brauer <max@transcode.de>"
+    "Max Brauer <max.brauer@picturepipe.com>"
   ],
   "license": "MIT",
   "dependencies": {
