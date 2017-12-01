@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Hopper'
-copyright = u'2015, transcode'
+copyright = u'2015, reelport GmbH'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -199,7 +199,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'hopper.tex', u'Hopper Documentation',
-   u'transcode', 'manual'),
+   u'reelport GmbH', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -229,7 +229,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'hopper', u'Hopper Documentation',
-     [u'transcode'], 1)
+     [u'reelport GmbH'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -243,7 +243,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'hopper', u'Hopper Documentation',
-   u'transcode', 'Hopper', 'A RESTful HTTP API for managing HTML forms.',
+   u'reelport GmbH', 'Hopper', 'A RESTful HTTP API for managing HTML forms.',
    'Miscellaneous'),
 ]
 
