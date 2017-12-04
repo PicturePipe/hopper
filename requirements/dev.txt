@@ -6,8 +6,5 @@ ipdb==0.8
 ipython==2.3.1
 sqlparse==0.1.14
 https://github.com/bsvetchine/django-configurations/archive/master.zip
-# factory-boy==2.6.0
-# Install factory-boy master branch until version 2.6.0 is released.
-# Our factories already use the new factory.Faker() feature.
-https://github.com/rbarrois/factory_boy/archive/master.zip
+factory-boy==2.8.1
 pytest-factoryboy==1.1.2
