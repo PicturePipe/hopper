@@ -37,6 +37,9 @@ docs_requires = [
 
 tests_requires = [
     'coverage==4.0.0',
+    # TODO factory-boy >= 2.9 causes this exception:
+    # AttributeError: 'DjangoOptions' object has no attribute 'postgen_declarations'
+    'factory-boy<2.9',
     'fake-factory==0.5.3',
     'freezegun==0.2.8',
     'httpretty>=0.8.0,!=0.8.1,!=0.8.2,!=0.8.3,!=0.8.7,!=0.8.8,!=0.8.9,!=0.8.10',
