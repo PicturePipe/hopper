@@ -19,4 +19,4 @@ after_success:
 sudo: false
 notifications:
   slack:
-    secure: VxOKr3ZnF/tTtYCfE/vynuzK/EEwpQBaxo854of5BNESFFciAKn+GMZpMiMT9BWtXTzwDKpxTl8G0qpBJ2lhxNODJ3LEl2GJVGCpGYCP9Y1NutMDDfy+siQc0RnZAKVViwJWCxeb1qSvaBErTNizSoCwyuAn+VgVJfTXUmtAlRU=
+    secure: gjsSmeQ7QTZBVPLeUxgL0gPlc3M6Z1Zz3YUkedGbhdhUpR4oT+sipvyiCPbQ970o2CszsrkClSkpEvBsBFpc8ZlISgen9nFn/KrCWJwQJubX/9qdEIiOTrKe7Q47vsuGox1O7eQ6HDMuYTRojgoAFbA+H+Gsxee12FLhFp7I7lA=
