@@ -13,7 +13,7 @@ class Email(object):
     EMAIL_HOST = values.Value('localhost')
     EMAIL_PORT = values.IntegerValue(25)  # Alternate TLS port is 587
     EMAIL_USE_TLS = values.BooleanValue(True)
-    EMAIL_HOST_USER = values.Value('team@transcode.de')
+    EMAIL_HOST_USER = values.Value('development@picturepipe.com')
     EMAIL_HOST_PASSWORD = values.SecretValue()
 
 
