@@ -1,2 +1,2 @@
-codecov==1.5.1
+codecov==2.0.9
 tox==1.9.2
