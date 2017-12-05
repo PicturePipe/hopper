@@ -1,0 +1,7 @@
+comment:
+  layout: "header, diff, reach, tree"
+coverage:
+  notify:
+    slack:
+      default:
+        url: https://hooks.slack.com/services/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
