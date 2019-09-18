@@ -6,5 +6,4 @@ requestInfoReplyComment: >
 checkIssueTemplate: true
 checkPullRequestTemplate: true
 requestInfoUserstoExclude:
-  - pyup-bot
   - renovate

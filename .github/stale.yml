@@ -16,7 +16,6 @@ markComment: >
 # Specify configuration settings that are specific to just 'issues' or 'pulls':
 pulls:
   exemptLabels:
-    - pyup
     - renovate
   markComment: >
     This pull request has been automatically marked as stale because it has not had recent
